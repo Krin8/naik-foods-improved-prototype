@@ -7,6 +7,7 @@ const rawCategories = [
   { id: "mukhvas-and-digestives", name: "Mukhvas & Digestives", image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748598685/mukhvas_category_kqjghd.webp", count: 6 },
   { id: "spices-and-masalas", name: "Spices & Masalas", image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748598685/spices_category_q9rtxy.webp", count: 8 },
   { id: "dry-instant-grocery", name: "Dry / Instant Grocery", image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748598685/grocery_category_lk4rtu.webp", count: 12 },
+  { id: "gift-boxes", name: "Gift Boxes & Hampers", image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601335/shrewsbury-cookies_hjk9wz.webp", count: 3 },
 ];
 
 export const products = [
@@ -549,6 +550,1298 @@ export const products = [
     inStock: true,
     isBestseller: true,
   },
+  {
+    id: 19,
+    slug: "snacks-and-namkeen-mock-1",
+    name: "Pune Snacks And Namkeen 1",
+    brand: "Naik Foods",
+    description: "Authentic Pune snacks-and-namkeen made with traditional recipes. Perfect for every occasion.",
+    shortDesc: "Traditional Pune delicacy",
+    price: 90,
+    originalPrice: 110,
+    discount: 18,
+    weight: "200g",
+    category: "snacks-and-namkeen",
+    region: "Pune",
+    image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601336/potato-chips_rt2o8l.webp",
+    images: [
+        "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601336/potato-chips_rt2o8l.webp"
+    ],
+    rating: 4.5,
+    reviews: 20,
+    tags: [
+        "snacks-and-namkeen",
+        "pune",
+        "traditional"
+    ],
+    highlights: [
+        "Handmade",
+        "No preservatives",
+        "Authentic taste"
+    ],
+    fssai: "11521036000123",
+    ingredients: "Traditional regional ingredients, spices, edible oil",
+    nutrition: "Energy: 450 kcal, Protein: 10g",
+    allergens: "May contain traces of peanuts",
+    shelfLife: "6 Months",
+    isVegetarian: true,
+    inStock: true,
+    isNew: false,
+    isBestseller: false
+},
+  {
+    id: 20,
+    slug: "snacks-and-namkeen-mock-2",
+    name: "Pune Snacks And Namkeen 2",
+    brand: "Naik Foods",
+    description: "Authentic Pune snacks-and-namkeen made with traditional recipes. Perfect for every occasion.",
+    shortDesc: "Traditional Pune delicacy",
+    price: 100,
+    originalPrice: 120,
+    discount: 17,
+    weight: "200g",
+    category: "snacks-and-namkeen",
+    region: "Pune",
+    image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601336/potato-chips_rt2o8l.webp",
+    images: [
+        "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601336/potato-chips_rt2o8l.webp"
+    ],
+    rating: 4.5,
+    reviews: 14,
+    tags: [
+        "snacks-and-namkeen",
+        "pune",
+        "traditional"
+    ],
+    highlights: [
+        "Handmade",
+        "No preservatives",
+        "Authentic taste"
+    ],
+    fssai: "11521036000123",
+    ingredients: "Traditional regional ingredients, spices, edible oil",
+    nutrition: "Energy: 450 kcal, Protein: 10g",
+    allergens: "May contain traces of peanuts",
+    shelfLife: "6 Months",
+    isVegetarian: true,
+    inStock: true,
+    isNew: true,
+    isBestseller: false
+},
+  {
+    id: 21,
+    slug: "snacks-and-namkeen-mock-3",
+    name: "Pune Snacks And Namkeen 3",
+    brand: "Naik Foods",
+    description: "Authentic Pune snacks-and-namkeen made with traditional recipes. Perfect for every occasion.",
+    shortDesc: "Traditional Pune delicacy",
+    price: 110,
+    originalPrice: 130,
+    discount: 15,
+    weight: "200g",
+    category: "snacks-and-namkeen",
+    region: "Pune",
+    image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601336/potato-chips_rt2o8l.webp",
+    images: [
+        "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601336/potato-chips_rt2o8l.webp"
+    ],
+    rating: 4.5,
+    reviews: 47,
+    tags: [
+        "snacks-and-namkeen",
+        "pune",
+        "traditional"
+    ],
+    highlights: [
+        "Handmade",
+        "No preservatives",
+        "Authentic taste"
+    ],
+    fssai: "11521036000123",
+    ingredients: "Traditional regional ingredients, spices, edible oil",
+    nutrition: "Energy: 450 kcal, Protein: 10g",
+    allergens: "May contain traces of peanuts",
+    shelfLife: "6 Months",
+    isVegetarian: true,
+    inStock: true,
+    isNew: false,
+    isBestseller: true
+},
+  {
+    id: 22,
+    slug: "snacks-and-namkeen-mock-4",
+    name: "Pune Snacks And Namkeen 4",
+    brand: "Naik Foods",
+    description: "Authentic Pune snacks-and-namkeen made with traditional recipes. Perfect for every occasion.",
+    shortDesc: "Traditional Pune delicacy",
+    price: 120,
+    originalPrice: 140,
+    discount: 14,
+    weight: "200g",
+    category: "snacks-and-namkeen",
+    region: "Pune",
+    image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601336/potato-chips_rt2o8l.webp",
+    images: [
+        "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601336/potato-chips_rt2o8l.webp"
+    ],
+    rating: 4.5,
+    reviews: 30,
+    tags: [
+        "snacks-and-namkeen",
+        "pune",
+        "traditional"
+    ],
+    highlights: [
+        "Handmade",
+        "No preservatives",
+        "Authentic taste"
+    ],
+    fssai: "11521036000123",
+    ingredients: "Traditional regional ingredients, spices, edible oil",
+    nutrition: "Energy: 450 kcal, Protein: 10g",
+    allergens: "May contain traces of peanuts",
+    shelfLife: "6 Months",
+    isVegetarian: true,
+    inStock: true,
+    isNew: true,
+    isBestseller: false
+},
+  {
+    id: 23,
+    slug: "snacks-and-namkeen-mock-5",
+    name: "Pune Snacks And Namkeen 5",
+    brand: "Naik Foods",
+    description: "Authentic Pune snacks-and-namkeen made with traditional recipes. Perfect for every occasion.",
+    shortDesc: "Traditional Pune delicacy",
+    price: 130,
+    originalPrice: 150,
+    discount: 13,
+    weight: "200g",
+    category: "snacks-and-namkeen",
+    region: "Pune",
+    image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601336/potato-chips_rt2o8l.webp",
+    images: [
+        "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601336/potato-chips_rt2o8l.webp"
+    ],
+    rating: 4.5,
+    reviews: 28,
+    tags: [
+        "snacks-and-namkeen",
+        "pune",
+        "traditional"
+    ],
+    highlights: [
+        "Handmade",
+        "No preservatives",
+        "Authentic taste"
+    ],
+    fssai: "11521036000123",
+    ingredients: "Traditional regional ingredients, spices, edible oil",
+    nutrition: "Energy: 450 kcal, Protein: 10g",
+    allergens: "May contain traces of peanuts",
+    shelfLife: "6 Months",
+    isVegetarian: true,
+    inStock: true,
+    isNew: false,
+    isBestseller: false
+},
+  {
+    id: 24,
+    slug: "snacks-and-namkeen-mock-6",
+    name: "Pune Snacks And Namkeen 6",
+    brand: "Naik Foods",
+    description: "Authentic Pune snacks-and-namkeen made with traditional recipes. Perfect for every occasion.",
+    shortDesc: "Traditional Pune delicacy",
+    price: 140,
+    originalPrice: 160,
+    discount: 13,
+    weight: "200g",
+    category: "snacks-and-namkeen",
+    region: "Pune",
+    image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601336/potato-chips_rt2o8l.webp",
+    images: [
+        "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601336/potato-chips_rt2o8l.webp"
+    ],
+    rating: 4.5,
+    reviews: 14,
+    tags: [
+        "snacks-and-namkeen",
+        "pune",
+        "traditional"
+    ],
+    highlights: [
+        "Handmade",
+        "No preservatives",
+        "Authentic taste"
+    ],
+    fssai: "11521036000123",
+    ingredients: "Traditional regional ingredients, spices, edible oil",
+    nutrition: "Energy: 450 kcal, Protein: 10g",
+    allergens: "May contain traces of peanuts",
+    shelfLife: "6 Months",
+    isVegetarian: true,
+    inStock: true,
+    isNew: true,
+    isBestseller: true
+},
+  {
+    id: 25,
+    slug: "snacks-and-namkeen-mock-7",
+    name: "Pune Snacks And Namkeen 7",
+    brand: "Naik Foods",
+    description: "Authentic Pune snacks-and-namkeen made with traditional recipes. Perfect for every occasion.",
+    shortDesc: "Traditional Pune delicacy",
+    price: 150,
+    originalPrice: 170,
+    discount: 12,
+    weight: "200g",
+    category: "snacks-and-namkeen",
+    region: "Pune",
+    image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601336/potato-chips_rt2o8l.webp",
+    images: [
+        "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601336/potato-chips_rt2o8l.webp"
+    ],
+    rating: 4.5,
+    reviews: 26,
+    tags: [
+        "snacks-and-namkeen",
+        "pune",
+        "traditional"
+    ],
+    highlights: [
+        "Handmade",
+        "No preservatives",
+        "Authentic taste"
+    ],
+    fssai: "11521036000123",
+    ingredients: "Traditional regional ingredients, spices, edible oil",
+    nutrition: "Energy: 450 kcal, Protein: 10g",
+    allergens: "May contain traces of peanuts",
+    shelfLife: "6 Months",
+    isVegetarian: true,
+    inStock: true,
+    isNew: false,
+    isBestseller: false
+},
+  {
+    id: 26,
+    slug: "snacks-and-namkeen-mock-8",
+    name: "Pune Snacks And Namkeen 8",
+    brand: "Naik Foods",
+    description: "Authentic Pune snacks-and-namkeen made with traditional recipes. Perfect for every occasion.",
+    shortDesc: "Traditional Pune delicacy",
+    price: 160,
+    originalPrice: 180,
+    discount: 11,
+    weight: "200g",
+    category: "snacks-and-namkeen",
+    region: "Pune",
+    image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601336/potato-chips_rt2o8l.webp",
+    images: [
+        "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601336/potato-chips_rt2o8l.webp"
+    ],
+    rating: 4.5,
+    reviews: 54,
+    tags: [
+        "snacks-and-namkeen",
+        "pune",
+        "traditional"
+    ],
+    highlights: [
+        "Handmade",
+        "No preservatives",
+        "Authentic taste"
+    ],
+    fssai: "11521036000123",
+    ingredients: "Traditional regional ingredients, spices, edible oil",
+    nutrition: "Energy: 450 kcal, Protein: 10g",
+    allergens: "May contain traces of peanuts",
+    shelfLife: "6 Months",
+    isVegetarian: true,
+    inStock: true,
+    isNew: true,
+    isBestseller: false
+},
+  {
+    id: 27,
+    slug: "snacks-and-namkeen-mock-9",
+    name: "Pune Snacks And Namkeen 9",
+    brand: "Naik Foods",
+    description: "Authentic Pune snacks-and-namkeen made with traditional recipes. Perfect for every occasion.",
+    shortDesc: "Traditional Pune delicacy",
+    price: 170,
+    originalPrice: 190,
+    discount: 11,
+    weight: "200g",
+    category: "snacks-and-namkeen",
+    region: "Pune",
+    image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601336/potato-chips_rt2o8l.webp",
+    images: [
+        "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601336/potato-chips_rt2o8l.webp"
+    ],
+    rating: 4.5,
+    reviews: 21,
+    tags: [
+        "snacks-and-namkeen",
+        "pune",
+        "traditional"
+    ],
+    highlights: [
+        "Handmade",
+        "No preservatives",
+        "Authentic taste"
+    ],
+    fssai: "11521036000123",
+    ingredients: "Traditional regional ingredients, spices, edible oil",
+    nutrition: "Energy: 450 kcal, Protein: 10g",
+    allergens: "May contain traces of peanuts",
+    shelfLife: "6 Months",
+    isVegetarian: true,
+    inStock: true,
+    isNew: false,
+    isBestseller: true
+},
+  {
+    id: 28,
+    slug: "snacks-and-namkeen-mock-10",
+    name: "Pune Snacks And Namkeen 10",
+    brand: "Naik Foods",
+    description: "Authentic Pune snacks-and-namkeen made with traditional recipes. Perfect for every occasion.",
+    shortDesc: "Traditional Pune delicacy",
+    price: 180,
+    originalPrice: 200,
+    discount: 10,
+    weight: "200g",
+    category: "snacks-and-namkeen",
+    region: "Pune",
+    image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601336/potato-chips_rt2o8l.webp",
+    images: [
+        "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601336/potato-chips_rt2o8l.webp"
+    ],
+    rating: 4.5,
+    reviews: 32,
+    tags: [
+        "snacks-and-namkeen",
+        "pune",
+        "traditional"
+    ],
+    highlights: [
+        "Handmade",
+        "No preservatives",
+        "Authentic taste"
+    ],
+    fssai: "11521036000123",
+    ingredients: "Traditional regional ingredients, spices, edible oil",
+    nutrition: "Energy: 450 kcal, Protein: 10g",
+    allergens: "May contain traces of peanuts",
+    shelfLife: "6 Months",
+    isVegetarian: true,
+    inStock: true,
+    isNew: true,
+    isBestseller: false
+},
+  {
+    id: 29,
+    slug: "sweets-and-bakery-mock-1",
+    name: "Kolhapur Sweets And Bakery 1",
+    brand: "Naik Foods",
+    description: "Authentic Kolhapur sweets-and-bakery made with traditional recipes. Perfect for every occasion.",
+    shortDesc: "Traditional Kolhapur delicacy",
+    price: 160,
+    originalPrice: 180,
+    discount: 11,
+    weight: "200g",
+    category: "sweets-and-bakery",
+    region: "Kolhapur",
+    image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601335/chitale-gulabjam_r8q2wp.webp",
+    images: [
+        "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601335/chitale-gulabjam_r8q2wp.webp"
+    ],
+    rating: 4.5,
+    reviews: 19,
+    tags: [
+        "sweets-and-bakery",
+        "kolhapur",
+        "traditional"
+    ],
+    highlights: [
+        "Handmade",
+        "No preservatives",
+        "Authentic taste"
+    ],
+    fssai: "11521036000123",
+    ingredients: "Traditional regional ingredients, spices, edible oil",
+    nutrition: "Energy: 450 kcal, Protein: 10g",
+    allergens: "May contain traces of peanuts",
+    shelfLife: "6 Months",
+    isVegetarian: true,
+    inStock: true,
+    isNew: false,
+    isBestseller: false
+},
+  {
+    id: 30,
+    slug: "sweets-and-bakery-mock-2",
+    name: "Kolhapur Sweets And Bakery 2",
+    brand: "Naik Foods",
+    description: "Authentic Kolhapur sweets-and-bakery made with traditional recipes. Perfect for every occasion.",
+    shortDesc: "Traditional Kolhapur delicacy",
+    price: 170,
+    originalPrice: 190,
+    discount: 11,
+    weight: "200g",
+    category: "sweets-and-bakery",
+    region: "Kolhapur",
+    image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601335/chitale-gulabjam_r8q2wp.webp",
+    images: [
+        "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601335/chitale-gulabjam_r8q2wp.webp"
+    ],
+    rating: 4.5,
+    reviews: 39,
+    tags: [
+        "sweets-and-bakery",
+        "kolhapur",
+        "traditional"
+    ],
+    highlights: [
+        "Handmade",
+        "No preservatives",
+        "Authentic taste"
+    ],
+    fssai: "11521036000123",
+    ingredients: "Traditional regional ingredients, spices, edible oil",
+    nutrition: "Energy: 450 kcal, Protein: 10g",
+    allergens: "May contain traces of peanuts",
+    shelfLife: "6 Months",
+    isVegetarian: true,
+    inStock: true,
+    isNew: true,
+    isBestseller: false
+},
+  {
+    id: 31,
+    slug: "sweets-and-bakery-mock-3",
+    name: "Kolhapur Sweets And Bakery 3",
+    brand: "Naik Foods",
+    description: "Authentic Kolhapur sweets-and-bakery made with traditional recipes. Perfect for every occasion.",
+    shortDesc: "Traditional Kolhapur delicacy",
+    price: 180,
+    originalPrice: 200,
+    discount: 10,
+    weight: "200g",
+    category: "sweets-and-bakery",
+    region: "Kolhapur",
+    image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601335/chitale-gulabjam_r8q2wp.webp",
+    images: [
+        "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601335/chitale-gulabjam_r8q2wp.webp"
+    ],
+    rating: 4.5,
+    reviews: 28,
+    tags: [
+        "sweets-and-bakery",
+        "kolhapur",
+        "traditional"
+    ],
+    highlights: [
+        "Handmade",
+        "No preservatives",
+        "Authentic taste"
+    ],
+    fssai: "11521036000123",
+    ingredients: "Traditional regional ingredients, spices, edible oil",
+    nutrition: "Energy: 450 kcal, Protein: 10g",
+    allergens: "May contain traces of peanuts",
+    shelfLife: "6 Months",
+    isVegetarian: true,
+    inStock: true,
+    isNew: false,
+    isBestseller: true
+},
+  {
+    id: 32,
+    slug: "sweets-and-bakery-mock-4",
+    name: "Kolhapur Sweets And Bakery 4",
+    brand: "Naik Foods",
+    description: "Authentic Kolhapur sweets-and-bakery made with traditional recipes. Perfect for every occasion.",
+    shortDesc: "Traditional Kolhapur delicacy",
+    price: 190,
+    originalPrice: 210,
+    discount: 10,
+    weight: "200g",
+    category: "sweets-and-bakery",
+    region: "Kolhapur",
+    image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601335/chitale-gulabjam_r8q2wp.webp",
+    images: [
+        "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601335/chitale-gulabjam_r8q2wp.webp"
+    ],
+    rating: 4.5,
+    reviews: 16,
+    tags: [
+        "sweets-and-bakery",
+        "kolhapur",
+        "traditional"
+    ],
+    highlights: [
+        "Handmade",
+        "No preservatives",
+        "Authentic taste"
+    ],
+    fssai: "11521036000123",
+    ingredients: "Traditional regional ingredients, spices, edible oil",
+    nutrition: "Energy: 450 kcal, Protein: 10g",
+    allergens: "May contain traces of peanuts",
+    shelfLife: "6 Months",
+    isVegetarian: true,
+    inStock: true,
+    isNew: true,
+    isBestseller: false
+},
+  {
+    id: 33,
+    slug: "sweets-and-bakery-mock-5",
+    name: "Kolhapur Sweets And Bakery 5",
+    brand: "Naik Foods",
+    description: "Authentic Kolhapur sweets-and-bakery made with traditional recipes. Perfect for every occasion.",
+    shortDesc: "Traditional Kolhapur delicacy",
+    price: 200,
+    originalPrice: 220,
+    discount: 9,
+    weight: "200g",
+    category: "sweets-and-bakery",
+    region: "Kolhapur",
+    image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601335/chitale-gulabjam_r8q2wp.webp",
+    images: [
+        "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601335/chitale-gulabjam_r8q2wp.webp"
+    ],
+    rating: 4.5,
+    reviews: 17,
+    tags: [
+        "sweets-and-bakery",
+        "kolhapur",
+        "traditional"
+    ],
+    highlights: [
+        "Handmade",
+        "No preservatives",
+        "Authentic taste"
+    ],
+    fssai: "11521036000123",
+    ingredients: "Traditional regional ingredients, spices, edible oil",
+    nutrition: "Energy: 450 kcal, Protein: 10g",
+    allergens: "May contain traces of peanuts",
+    shelfLife: "6 Months",
+    isVegetarian: true,
+    inStock: true,
+    isNew: false,
+    isBestseller: false
+},
+  {
+    id: 34,
+    slug: "sweets-and-bakery-mock-6",
+    name: "Kolhapur Sweets And Bakery 6",
+    brand: "Naik Foods",
+    description: "Authentic Kolhapur sweets-and-bakery made with traditional recipes. Perfect for every occasion.",
+    shortDesc: "Traditional Kolhapur delicacy",
+    price: 210,
+    originalPrice: 230,
+    discount: 9,
+    weight: "200g",
+    category: "sweets-and-bakery",
+    region: "Kolhapur",
+    image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601335/chitale-gulabjam_r8q2wp.webp",
+    images: [
+        "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601335/chitale-gulabjam_r8q2wp.webp"
+    ],
+    rating: 4.5,
+    reviews: 53,
+    tags: [
+        "sweets-and-bakery",
+        "kolhapur",
+        "traditional"
+    ],
+    highlights: [
+        "Handmade",
+        "No preservatives",
+        "Authentic taste"
+    ],
+    fssai: "11521036000123",
+    ingredients: "Traditional regional ingredients, spices, edible oil",
+    nutrition: "Energy: 450 kcal, Protein: 10g",
+    allergens: "May contain traces of peanuts",
+    shelfLife: "6 Months",
+    isVegetarian: true,
+    inStock: true,
+    isNew: true,
+    isBestseller: true
+},
+  {
+    id: 35,
+    slug: "sweets-and-bakery-mock-7",
+    name: "Kolhapur Sweets And Bakery 7",
+    brand: "Naik Foods",
+    description: "Authentic Kolhapur sweets-and-bakery made with traditional recipes. Perfect for every occasion.",
+    shortDesc: "Traditional Kolhapur delicacy",
+    price: 220,
+    originalPrice: 240,
+    discount: 8,
+    weight: "200g",
+    category: "sweets-and-bakery",
+    region: "Kolhapur",
+    image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601335/chitale-gulabjam_r8q2wp.webp",
+    images: [
+        "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601335/chitale-gulabjam_r8q2wp.webp"
+    ],
+    rating: 4.5,
+    reviews: 36,
+    tags: [
+        "sweets-and-bakery",
+        "kolhapur",
+        "traditional"
+    ],
+    highlights: [
+        "Handmade",
+        "No preservatives",
+        "Authentic taste"
+    ],
+    fssai: "11521036000123",
+    ingredients: "Traditional regional ingredients, spices, edible oil",
+    nutrition: "Energy: 450 kcal, Protein: 10g",
+    allergens: "May contain traces of peanuts",
+    shelfLife: "6 Months",
+    isVegetarian: true,
+    inStock: true,
+    isNew: false,
+    isBestseller: false
+},
+  {
+    id: 36,
+    slug: "sweets-and-bakery-mock-8",
+    name: "Kolhapur Sweets And Bakery 8",
+    brand: "Naik Foods",
+    description: "Authentic Kolhapur sweets-and-bakery made with traditional recipes. Perfect for every occasion.",
+    shortDesc: "Traditional Kolhapur delicacy",
+    price: 230,
+    originalPrice: 250,
+    discount: 8,
+    weight: "200g",
+    category: "sweets-and-bakery",
+    region: "Kolhapur",
+    image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601335/chitale-gulabjam_r8q2wp.webp",
+    images: [
+        "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601335/chitale-gulabjam_r8q2wp.webp"
+    ],
+    rating: 4.5,
+    reviews: 33,
+    tags: [
+        "sweets-and-bakery",
+        "kolhapur",
+        "traditional"
+    ],
+    highlights: [
+        "Handmade",
+        "No preservatives",
+        "Authentic taste"
+    ],
+    fssai: "11521036000123",
+    ingredients: "Traditional regional ingredients, spices, edible oil",
+    nutrition: "Energy: 450 kcal, Protein: 10g",
+    allergens: "May contain traces of peanuts",
+    shelfLife: "6 Months",
+    isVegetarian: true,
+    inStock: true,
+    isNew: true,
+    isBestseller: false
+},
+  {
+    id: 37,
+    slug: "pickles-and-condiments-mock-1",
+    name: "Konkan Pickles And Condiments 1",
+    brand: "Naik Foods",
+    description: "Authentic Konkan pickles-and-condiments made with traditional recipes. Perfect for every occasion.",
+    shortDesc: "Traditional Konkan delicacy",
+    price: 130,
+    originalPrice: 150,
+    discount: 13,
+    weight: "200g",
+    category: "pickles-and-condiments",
+    region: "Konkan",
+    image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601338/kolambi-lonche_kjb2nw.webp",
+    images: [
+        "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601338/kolambi-lonche_kjb2nw.webp"
+    ],
+    rating: 4.5,
+    reviews: 12,
+    tags: [
+        "pickles-and-condiments",
+        "konkan",
+        "traditional"
+    ],
+    highlights: [
+        "Handmade",
+        "No preservatives",
+        "Authentic taste"
+    ],
+    fssai: "11521036000123",
+    ingredients: "Traditional regional ingredients, spices, edible oil",
+    nutrition: "Energy: 450 kcal, Protein: 10g",
+    allergens: "May contain traces of peanuts",
+    shelfLife: "6 Months",
+    isVegetarian: true,
+    inStock: true,
+    isNew: false,
+    isBestseller: false
+},
+  {
+    id: 38,
+    slug: "pickles-and-condiments-mock-2",
+    name: "Konkan Pickles And Condiments 2",
+    brand: "Naik Foods",
+    description: "Authentic Konkan pickles-and-condiments made with traditional recipes. Perfect for every occasion.",
+    shortDesc: "Traditional Konkan delicacy",
+    price: 140,
+    originalPrice: 160,
+    discount: 13,
+    weight: "200g",
+    category: "pickles-and-condiments",
+    region: "Konkan",
+    image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601338/kolambi-lonche_kjb2nw.webp",
+    images: [
+        "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601338/kolambi-lonche_kjb2nw.webp"
+    ],
+    rating: 4.5,
+    reviews: 29,
+    tags: [
+        "pickles-and-condiments",
+        "konkan",
+        "traditional"
+    ],
+    highlights: [
+        "Handmade",
+        "No preservatives",
+        "Authentic taste"
+    ],
+    fssai: "11521036000123",
+    ingredients: "Traditional regional ingredients, spices, edible oil",
+    nutrition: "Energy: 450 kcal, Protein: 10g",
+    allergens: "May contain traces of peanuts",
+    shelfLife: "6 Months",
+    isVegetarian: true,
+    inStock: true,
+    isNew: true,
+    isBestseller: false
+},
+  {
+    id: 39,
+    slug: "pickles-and-condiments-mock-3",
+    name: "Konkan Pickles And Condiments 3",
+    brand: "Naik Foods",
+    description: "Authentic Konkan pickles-and-condiments made with traditional recipes. Perfect for every occasion.",
+    shortDesc: "Traditional Konkan delicacy",
+    price: 150,
+    originalPrice: 170,
+    discount: 12,
+    weight: "200g",
+    category: "pickles-and-condiments",
+    region: "Konkan",
+    image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601338/kolambi-lonche_kjb2nw.webp",
+    images: [
+        "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601338/kolambi-lonche_kjb2nw.webp"
+    ],
+    rating: 4.5,
+    reviews: 54,
+    tags: [
+        "pickles-and-condiments",
+        "konkan",
+        "traditional"
+    ],
+    highlights: [
+        "Handmade",
+        "No preservatives",
+        "Authentic taste"
+    ],
+    fssai: "11521036000123",
+    ingredients: "Traditional regional ingredients, spices, edible oil",
+    nutrition: "Energy: 450 kcal, Protein: 10g",
+    allergens: "May contain traces of peanuts",
+    shelfLife: "6 Months",
+    isVegetarian: true,
+    inStock: true,
+    isNew: false,
+    isBestseller: true
+},
+  {
+    id: 40,
+    slug: "pickles-and-condiments-mock-4",
+    name: "Konkan Pickles And Condiments 4",
+    brand: "Naik Foods",
+    description: "Authentic Konkan pickles-and-condiments made with traditional recipes. Perfect for every occasion.",
+    shortDesc: "Traditional Konkan delicacy",
+    price: 160,
+    originalPrice: 180,
+    discount: 11,
+    weight: "200g",
+    category: "pickles-and-condiments",
+    region: "Konkan",
+    image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601338/kolambi-lonche_kjb2nw.webp",
+    images: [
+        "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601338/kolambi-lonche_kjb2nw.webp"
+    ],
+    rating: 4.5,
+    reviews: 52,
+    tags: [
+        "pickles-and-condiments",
+        "konkan",
+        "traditional"
+    ],
+    highlights: [
+        "Handmade",
+        "No preservatives",
+        "Authentic taste"
+    ],
+    fssai: "11521036000123",
+    ingredients: "Traditional regional ingredients, spices, edible oil",
+    nutrition: "Energy: 450 kcal, Protein: 10g",
+    allergens: "May contain traces of peanuts",
+    shelfLife: "6 Months",
+    isVegetarian: true,
+    inStock: true,
+    isNew: true,
+    isBestseller: false
+},
+  {
+    id: 41,
+    slug: "pickles-and-condiments-mock-5",
+    name: "Konkan Pickles And Condiments 5",
+    brand: "Naik Foods",
+    description: "Authentic Konkan pickles-and-condiments made with traditional recipes. Perfect for every occasion.",
+    shortDesc: "Traditional Konkan delicacy",
+    price: 170,
+    originalPrice: 190,
+    discount: 11,
+    weight: "200g",
+    category: "pickles-and-condiments",
+    region: "Konkan",
+    image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601338/kolambi-lonche_kjb2nw.webp",
+    images: [
+        "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601338/kolambi-lonche_kjb2nw.webp"
+    ],
+    rating: 4.5,
+    reviews: 13,
+    tags: [
+        "pickles-and-condiments",
+        "konkan",
+        "traditional"
+    ],
+    highlights: [
+        "Handmade",
+        "No preservatives",
+        "Authentic taste"
+    ],
+    fssai: "11521036000123",
+    ingredients: "Traditional regional ingredients, spices, edible oil",
+    nutrition: "Energy: 450 kcal, Protein: 10g",
+    allergens: "May contain traces of peanuts",
+    shelfLife: "6 Months",
+    isVegetarian: true,
+    inStock: true,
+    isNew: false,
+    isBestseller: false
+},
+  {
+    id: 42,
+    slug: "pickles-and-condiments-mock-6",
+    name: "Konkan Pickles And Condiments 6",
+    brand: "Naik Foods",
+    description: "Authentic Konkan pickles-and-condiments made with traditional recipes. Perfect for every occasion.",
+    shortDesc: "Traditional Konkan delicacy",
+    price: 180,
+    originalPrice: 200,
+    discount: 10,
+    weight: "200g",
+    category: "pickles-and-condiments",
+    region: "Konkan",
+    image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601338/kolambi-lonche_kjb2nw.webp",
+    images: [
+        "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601338/kolambi-lonche_kjb2nw.webp"
+    ],
+    rating: 4.5,
+    reviews: 36,
+    tags: [
+        "pickles-and-condiments",
+        "konkan",
+        "traditional"
+    ],
+    highlights: [
+        "Handmade",
+        "No preservatives",
+        "Authentic taste"
+    ],
+    fssai: "11521036000123",
+    ingredients: "Traditional regional ingredients, spices, edible oil",
+    nutrition: "Energy: 450 kcal, Protein: 10g",
+    allergens: "May contain traces of peanuts",
+    shelfLife: "6 Months",
+    isVegetarian: true,
+    inStock: true,
+    isNew: true,
+    isBestseller: true
+},
+  {
+    id: 43,
+    slug: "spices-and-masalas-mock-1",
+    name: "Vidarbha Spices And Masalas 1",
+    brand: "Naik Foods",
+    description: "Authentic Vidarbha spices-and-masalas made with traditional recipes. Perfect for every occasion.",
+    shortDesc: "Traditional Vidarbha delicacy",
+    price: 100,
+    originalPrice: 120,
+    discount: 17,
+    weight: "200g",
+    category: "spices-and-masalas",
+    region: "Vidarbha",
+    image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601337/prakash-paneer-masala_rtb3sm.webp",
+    images: [
+        "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601337/prakash-paneer-masala_rtb3sm.webp"
+    ],
+    rating: 4.5,
+    reviews: 36,
+    tags: [
+        "spices-and-masalas",
+        "vidarbha",
+        "traditional"
+    ],
+    highlights: [
+        "Handmade",
+        "No preservatives",
+        "Authentic taste"
+    ],
+    fssai: "11521036000123",
+    ingredients: "Traditional regional ingredients, spices, edible oil",
+    nutrition: "Energy: 450 kcal, Protein: 10g",
+    allergens: "May contain traces of peanuts",
+    shelfLife: "6 Months",
+    isVegetarian: true,
+    inStock: true,
+    isNew: false,
+    isBestseller: false
+},
+  {
+    id: 44,
+    slug: "spices-and-masalas-mock-2",
+    name: "Vidarbha Spices And Masalas 2",
+    brand: "Naik Foods",
+    description: "Authentic Vidarbha spices-and-masalas made with traditional recipes. Perfect for every occasion.",
+    shortDesc: "Traditional Vidarbha delicacy",
+    price: 110,
+    originalPrice: 130,
+    discount: 15,
+    weight: "200g",
+    category: "spices-and-masalas",
+    region: "Vidarbha",
+    image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601337/prakash-paneer-masala_rtb3sm.webp",
+    images: [
+        "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601337/prakash-paneer-masala_rtb3sm.webp"
+    ],
+    rating: 4.5,
+    reviews: 42,
+    tags: [
+        "spices-and-masalas",
+        "vidarbha",
+        "traditional"
+    ],
+    highlights: [
+        "Handmade",
+        "No preservatives",
+        "Authentic taste"
+    ],
+    fssai: "11521036000123",
+    ingredients: "Traditional regional ingredients, spices, edible oil",
+    nutrition: "Energy: 450 kcal, Protein: 10g",
+    allergens: "May contain traces of peanuts",
+    shelfLife: "6 Months",
+    isVegetarian: true,
+    inStock: true,
+    isNew: true,
+    isBestseller: false
+},
+  {
+    id: 45,
+    slug: "spices-and-masalas-mock-3",
+    name: "Vidarbha Spices And Masalas 3",
+    brand: "Naik Foods",
+    description: "Authentic Vidarbha spices-and-masalas made with traditional recipes. Perfect for every occasion.",
+    shortDesc: "Traditional Vidarbha delicacy",
+    price: 120,
+    originalPrice: 140,
+    discount: 14,
+    weight: "200g",
+    category: "spices-and-masalas",
+    region: "Vidarbha",
+    image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601337/prakash-paneer-masala_rtb3sm.webp",
+    images: [
+        "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601337/prakash-paneer-masala_rtb3sm.webp"
+    ],
+    rating: 4.5,
+    reviews: 21,
+    tags: [
+        "spices-and-masalas",
+        "vidarbha",
+        "traditional"
+    ],
+    highlights: [
+        "Handmade",
+        "No preservatives",
+        "Authentic taste"
+    ],
+    fssai: "11521036000123",
+    ingredients: "Traditional regional ingredients, spices, edible oil",
+    nutrition: "Energy: 450 kcal, Protein: 10g",
+    allergens: "May contain traces of peanuts",
+    shelfLife: "6 Months",
+    isVegetarian: true,
+    inStock: true,
+    isNew: false,
+    isBestseller: true
+},
+  {
+    id: 46,
+    slug: "spices-and-masalas-mock-4",
+    name: "Vidarbha Spices And Masalas 4",
+    brand: "Naik Foods",
+    description: "Authentic Vidarbha spices-and-masalas made with traditional recipes. Perfect for every occasion.",
+    shortDesc: "Traditional Vidarbha delicacy",
+    price: 130,
+    originalPrice: 150,
+    discount: 13,
+    weight: "200g",
+    category: "spices-and-masalas",
+    region: "Vidarbha",
+    image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601337/prakash-paneer-masala_rtb3sm.webp",
+    images: [
+        "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601337/prakash-paneer-masala_rtb3sm.webp"
+    ],
+    rating: 4.5,
+    reviews: 54,
+    tags: [
+        "spices-and-masalas",
+        "vidarbha",
+        "traditional"
+    ],
+    highlights: [
+        "Handmade",
+        "No preservatives",
+        "Authentic taste"
+    ],
+    fssai: "11521036000123",
+    ingredients: "Traditional regional ingredients, spices, edible oil",
+    nutrition: "Energy: 450 kcal, Protein: 10g",
+    allergens: "May contain traces of peanuts",
+    shelfLife: "6 Months",
+    isVegetarian: true,
+    inStock: true,
+    isNew: true,
+    isBestseller: false
+},
+  {
+    id: 47,
+    slug: "spices-and-masalas-mock-5",
+    name: "Vidarbha Spices And Masalas 5",
+    brand: "Naik Foods",
+    description: "Authentic Vidarbha spices-and-masalas made with traditional recipes. Perfect for every occasion.",
+    shortDesc: "Traditional Vidarbha delicacy",
+    price: 140,
+    originalPrice: 160,
+    discount: 13,
+    weight: "200g",
+    category: "spices-and-masalas",
+    region: "Vidarbha",
+    image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601337/prakash-paneer-masala_rtb3sm.webp",
+    images: [
+        "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601337/prakash-paneer-masala_rtb3sm.webp"
+    ],
+    rating: 4.5,
+    reviews: 32,
+    tags: [
+        "spices-and-masalas",
+        "vidarbha",
+        "traditional"
+    ],
+    highlights: [
+        "Handmade",
+        "No preservatives",
+        "Authentic taste"
+    ],
+    fssai: "11521036000123",
+    ingredients: "Traditional regional ingredients, spices, edible oil",
+    nutrition: "Energy: 450 kcal, Protein: 10g",
+    allergens: "May contain traces of peanuts",
+    shelfLife: "6 Months",
+    isVegetarian: true,
+    inStock: true,
+    isNew: false,
+    isBestseller: false
+},
+  {
+    id: 48,
+    slug: "spices-and-masalas-mock-6",
+    name: "Vidarbha Spices And Masalas 6",
+    brand: "Naik Foods",
+    description: "Authentic Vidarbha spices-and-masalas made with traditional recipes. Perfect for every occasion.",
+    shortDesc: "Traditional Vidarbha delicacy",
+    price: 150,
+    originalPrice: 170,
+    discount: 12,
+    weight: "200g",
+    category: "spices-and-masalas",
+    region: "Vidarbha",
+    image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601337/prakash-paneer-masala_rtb3sm.webp",
+    images: [
+        "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601337/prakash-paneer-masala_rtb3sm.webp"
+    ],
+    rating: 4.5,
+    reviews: 24,
+    tags: [
+        "spices-and-masalas",
+        "vidarbha",
+        "traditional"
+    ],
+    highlights: [
+        "Handmade",
+        "No preservatives",
+        "Authentic taste"
+    ],
+    fssai: "11521036000123",
+    ingredients: "Traditional regional ingredients, spices, edible oil",
+    nutrition: "Energy: 450 kcal, Protein: 10g",
+    allergens: "May contain traces of peanuts",
+    shelfLife: "6 Months",
+    isVegetarian: true,
+    inStock: true,
+    isNew: true,
+    isBestseller: true
+},
+  {
+    id: 49,
+    slug: "pune-heritage-gift-box",
+    name: "Pune Heritage Gift Box",
+    brand: "Naik Foods",
+    description: "A curated selection of Pune's finest snacks and sweets, including Shrewsbury Cookies, Chitale Gulab Jamun, and Bhakarwadi. The perfect gift for any occasion.",
+    shortDesc: "Curated Pune specialties",
+    price: 499,
+    originalPrice: 650,
+    discount: 23,
+    weight: "1.2kg",
+    category: "gift-boxes",
+    region: "Pune",
+    image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601335/shrewsbury-cookies_hjk9wz.webp",
+    images: [
+        "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601335/shrewsbury-cookies_hjk9wz.webp"
+    ],
+    rating: 4.9,
+    reviews: 120,
+    tags: [
+        "gift-box",
+        "pune",
+        "bundle",
+        "sweets",
+        "snacks"
+    ],
+    highlights: [
+        "Beautifully packaged",
+        "Includes 4 premium items",
+        "Perfect for gifting"
+    ],
+    fssai: "11521036000123",
+    ingredients: "Assorted traditional ingredients",
+    nutrition: "Assorted",
+    allergens: "Contains peanuts, dairy, and gluten",
+    shelfLife: "3 Months",
+    isVegetarian: true,
+    inStock: true,
+    isNew: true,
+    isBestseller: true
+},
+  {
+    id: 50,
+    slug: "konkan-coastal-gift-box",
+    name: "Konkan Coastal Gift Box",
+    brand: "Naik Foods",
+    description: "Bring the flavors of the Konkan coast to your home with this bundle of Kolambi Lonche, Banana Wafers, and authentic spices.",
+    shortDesc: "Flavors of the Konkan coast",
+    price: 599,
+    originalPrice: 700,
+    discount: 14,
+    weight: "900g",
+    category: "gift-boxes",
+    region: "Konkan",
+    image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601338/kolambi-lonche_kjb2nw.webp",
+    images: [
+        "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601338/kolambi-lonche_kjb2nw.webp"
+    ],
+    rating: 4.8,
+    reviews: 85,
+    tags: [
+        "gift-box",
+        "konkan",
+        "bundle",
+        "pickle"
+    ],
+    highlights: [
+        "Authentic coastal flavors",
+        "Premium packaging",
+        "Great value"
+    ],
+    fssai: "11521036000123",
+    ingredients: "Assorted traditional ingredients",
+    nutrition: "Assorted",
+    allergens: "Contains seafood and peanuts",
+    shelfLife: "6 Months",
+    isVegetarian: false,
+    inStock: true,
+    isNew: true,
+    isBestseller: false
+},
+  {
+    id: 51,
+    slug: "kolhapur-spice-gift-box",
+    name: "Kolhapur Spice Gift Box",
+    brand: "Naik Foods",
+    description: "A fiery collection of Kolhapuri specialties, featuring Sawai Thecha, Maratha Masala, and Green Chilli Lemon Chutney.",
+    shortDesc: "Fiery Kolhapuri collection",
+    price: 399,
+    originalPrice: 480,
+    discount: 16,
+    weight: "750g",
+    category: "gift-boxes",
+    region: "Kolhapur",
+    image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601338/sawai-thecha_akndfm.webp",
+    images: [
+        "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601338/sawai-thecha_akndfm.webp"
+    ],
+    rating: 4.7,
+    reviews: 64,
+    tags: [
+        "gift-box",
+        "kolhapur",
+        "bundle",
+        "spices",
+        "thecha"
+    ],
+    highlights: [
+        "Authentic Kolhapuri heat",
+        "Hand-pounded spices",
+        "Perfect for spice lovers"
+    ],
+    fssai: "11521036000123",
+    ingredients: "Assorted traditional ingredients",
+    nutrition: "Assorted",
+    allergens: "Contains peanuts",
+    shelfLife: "6 Months",
+    isVegetarian: true,
+    inStock: true,
+    isNew: true,
+    isBestseller: true
+}
 ];
 
 // Bundle / "Frequently Bought Together" mappings

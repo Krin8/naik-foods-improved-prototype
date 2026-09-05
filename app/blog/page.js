@@ -1,35 +1,34 @@
 import Link from "next/link";
+import { posts } from "@/data/blog";
 
 export const metadata = {
-  title: "Blog | Naik Foods",
-  description: "Maharashtrian recipes, food history, and updates from Naik Foods.",
+  title: "Blog & Recipes | Naik Foods",
+  description: "Authentic Maharashtrian recipes, food stories, and more from the Naik Foods Kitchen.",
 };
 
-export default function BlogPage() {
+export default function BlogIndex() {
   return (
-    <div className="container" style={{ padding: "6rem 0", textAlign: "center", maxWidth: "600px" }}>
-      <div style={{ fontSize: "5rem", marginBottom: "1rem" }}>📖</div>
-      <h1 style={{ fontFamily: "var(--font-display)", fontWeight: "800", fontSize: "2rem", marginBottom: "1rem" }}>
-        Our Blog is Cooking
-      </h1>
-      <p style={{ color: "var(--text-secondary)", fontSize: "1.1rem", marginBottom: "2rem", lineHeight: "1.6" }}>
-        We are preparing traditional Maharashtrian recipes, tips on how to use our masalas, and stories behind our pickles. Check back soon!
-      </p>
-      <Link
-        href="/store"
-        style={{
-          display: "inline-block",
-          padding: "14px 32px",
-          background: "var(--green-500)",
-          color: "white",
-          borderRadius: "8px",
-          fontWeight: "700",
-          textDecoration: "none",
-          fontSize: "1rem",
-        }}
-      >
-        Shop Our Ingredients
-      </Link>
-    </div>
+    <>
+      <div className="store-hero">
+        <h1>Blog & Recipes</h1>
+        <p>Discover stories and recipes from the heart of Maharashtra</p>
+      </div>
+
+      <div className="container" style={{ padding: "4rem 20px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "2rem" }}>
+          {posts.map(post => (
+            <Link key={post.slug} href={`/blog/${post.slug}`} style={{ display: "flex", flexDirection: "column", background: "white", borderRadius: "12px", overflow: "hidden", border: "1px solid var(--border-color)", textDecoration: "none", color: "inherit", transition: "transform 0.2s" }} className="hover-card">
+              <img src={post.image} alt={post.title} style={{ width: "100%", height: "200px", objectFit: "cover" }} />
+              <div style={{ padding: "1.5rem" }}>
+                <div style={{ fontSize: "0.85rem", color: "var(--text-muted)", marginBottom: "0.5rem" }}>{new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</div>
+                <h2 style={{ fontSize: "1.25rem", marginBottom: "0.5rem", color: "var(--text-primary)" }}>{post.title}</h2>
+                <p style={{ fontSize: "0.95rem", color: "var(--text-secondary)", lineHeight: 1.5 }}>{post.excerpt}</p>
+                <div style={{ marginTop: "1rem", color: "var(--green-600)", fontWeight: 500, fontSize: "0.9rem" }}>Read More →</div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </>
   );
 }

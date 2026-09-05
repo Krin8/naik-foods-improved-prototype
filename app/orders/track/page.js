@@ -109,6 +109,20 @@ export default function TrackOrderPage() {
               </li>
             ))}
           </ul>
+          
+          <div style={{ marginTop: "2rem", display: "flex", gap: "1rem" }}>
+            <Link href="/store" style={{ ...btnStyle, display: "inline-block", textAlign: "center", textDecoration: "none", flex: 1, padding: "12px 24px" }}>
+              Shop More
+            </Link>
+            <a 
+              href={`https://wa.me/919730046247?text=Hi!%20I%20have%20a%20question%20about%20my%20order%20%23${order.id}.`}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ ...btnStyle, background: "#25D366", display: "inline-block", textAlign: "center", textDecoration: "none", flex: 1, padding: "12px 24px" }}
+            >
+              💬 Need Help? WhatsApp Us
+            </a>
+          </div>
         </div>
       )}
     </div>

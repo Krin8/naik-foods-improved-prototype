@@ -14,6 +14,14 @@ export default function CheckoutPage() {
   const [errorMsg, setErrorMsg] = useState("");
   const [promoCode, setPromoCode] = useState("");
 
+  // Initialize promo code from localStorage
+  useEffect(() => {
+    const savedPromo = localStorage.getItem("promoCode");
+    if (savedPromo) {
+      setPromoCode(savedPromo.toUpperCase());
+    }
+  }, []);
+
   // Address state (controlled)
   const [address, setAddress] = useState({
     firstName: "",
@@ -244,8 +252,16 @@ export default function CheckoutPage() {
                 <strong style={{ fontSize: "1.2rem", display: "block", marginBottom: "0.5rem" }}>{orderId}</strong>
                 <Link href="/orders/track" style={{ fontSize: "0.9rem", color: "var(--green-600)", textDecoration: "underline" }}>Track Order</Link>
               </div>
-              <div>
-                <Link href="/store" style={{ ...btnStyle, display: "inline-block", textDecoration: "none" }}>Continue Shopping</Link>
+              <div style={{ display: "flex", gap: "1rem", justifyContent: "center" }}>
+                <Link href="/store" style={{ ...btnStyle, display: "inline-block", textDecoration: "none", width: "auto", padding: "12px 24px" }}>Continue Shopping</Link>
+                <a 
+                  href={`https://wa.me/919730046247?text=Hi!%20I%20just%20placed%20order%20%23${orderId}.%20Can%20you%20confirm?`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ ...btnStyle, background: "#25D366", display: "inline-block", textDecoration: "none", width: "auto", padding: "12px 24px" }}
+                >
+                  💬 Chat on WhatsApp
+                </a>
               </div>
             </div>
           )}

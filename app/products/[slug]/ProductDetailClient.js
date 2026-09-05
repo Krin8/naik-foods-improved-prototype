@@ -12,7 +12,7 @@ export default function ProductDetailClient({ product }) {
 
   const [selectedVariant, setSelectedVariant] = useState(product.variants ? product.variants[0] : null);
   const [pincode, setPincode] = useState("");
-  const [pincodeStatus, setPincodeStatus] = useState(null);
+  const [pincodeResult, setPincodeResult] = useState(null);
 
   const activePrice = selectedVariant ? selectedVariant.price : product.price;
   const activeOriginalPrice = selectedVariant ? selectedVariant.originalPrice : product.originalPrice;
@@ -37,7 +37,7 @@ export default function ProductDetailClient({ product }) {
       return;
     }
     
-    setPincodeStatus("checking");
+    setPincodeResult({ status: "checking" });
 
     try {
       const res = await fetch("/api/shipping/serviceability", {
@@ -48,20 +48,22 @@ export default function ProductDetailClient({ product }) {
       const data = await res.json();
 
       if (!res.ok || data.error) {
-        setPincodeStatus("error");
+        setPincodeResult({ status: "error" });
         return;
       }
 
       if (!data.serviceable) {
-        setPincodeStatus("unserviceable");
-      } else if (data.eta === "7-10 days") {
-        setPincodeStatus("extended");
+        setPincodeResult({ status: "unserviceable" });
       } else {
-        setPincodeStatus("success");
+        setPincodeResult({ 
+          status: data.eta === "7-10 days" ? "extended" : "success",
+          cod: data.codAvailable,
+          eta: data.eta
+        });
       }
     } catch (err) {
       console.error(err);
-      setPincodeStatus("error");
+      setPincodeResult({ status: "error" });
     }
   };
 
@@ -178,25 +180,26 @@ export default function ProductDetailClient({ product }) {
                   Check
                 </button>
               </div>
-              
-              {pincodeStatus === "error" && <div style={{ fontSize: "0.85rem", color: "var(--red-500)" }}>Please enter a valid 6-digit pincode.</div>}
-              {pincodeStatus === "checking" && <div style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}>Checking availability...</div>}
-              {pincodeStatus === "success" && (
-                <div style={{ fontSize: "0.85rem", color: "var(--green-700)", display: "flex", alignItems: "center", gap: "4px" }}>
-                  <span>✅</span> Delivery available to <strong>{pincode}</strong>. Estimated delivery: 3-5 days. Ships from {product.region}.
+              {pincodeResult?.status === "error" && <div style={{ fontSize: "0.85rem", color: "var(--red-500)" }}>Please enter a valid 6-digit pincode.</div>}
+              {pincodeResult?.status === "checking" && <div style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}>Checking availability...</div>}
+              {pincodeResult?.status === "success" && (
+                <div style={{ fontSize: "0.85rem", color: "var(--green-700)", display: "flex", flexDirection: "column", gap: "4px" }}>
+                  <div><span>✅</span> Delivery available to <strong>{pincode}</strong>. Estimated delivery: {pincodeResult.eta}. Ships from {product.region}.</div>
+                  {pincodeResult.cod && <div style={{ marginLeft: "20px" }}><span>💰</span> Cash on Delivery is available.</div>}
                 </div>
               )}
-              {pincodeStatus === "extended" && (
-                <div style={{ fontSize: "0.85rem", color: "var(--orange-600)", display: "flex", alignItems: "center", gap: "4px" }}>
-                  <span>⚠️</span> Delivery available to <strong>{pincode}</strong>, but may take 7-10 days to remote areas.
+              {pincodeResult?.status === "extended" && (
+                <div style={{ fontSize: "0.85rem", color: "var(--orange-600)", display: "flex", flexDirection: "column", gap: "4px" }}>
+                  <div><span>⚠️</span> Delivery available to <strong>{pincode}</strong>, but may take {pincodeResult.eta} to remote areas.</div>
+                  {pincodeResult.cod && <div style={{ marginLeft: "20px" }}><span>💰</span> Cash on Delivery is available.</div>}
                 </div>
               )}
-              {pincodeStatus === "unserviceable" && (
+              {pincodeResult?.status === "unserviceable" && (
                 <div style={{ fontSize: "0.85rem", color: "var(--red-500)", display: "flex", alignItems: "center", gap: "4px" }}>
                   <span>❌</span> Sorry, we do not currently deliver to <strong>{pincode}</strong>.
                 </div>
               )}
-              {!pincodeStatus && (
+              {!pincodeResult && (
                 <span style={{ fontSize: "0.85rem", color: "var(--text-secondary)" }}>
                   Please enter your pincode to check delivery time and availability.
                 </span>

@@ -1,4 +1,5 @@
 import { products } from "@/data/products";
+import { posts } from "@/data/blog";
 
 export const dynamic = "force-static";
 
@@ -19,8 +20,22 @@ export default function sitemap() {
     priority: 0.8,
   }));
 
+  const blogUrls = posts.map((post) => ({
+    url: `${baseUrl}/blog/${post.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.7,
+  }));
+
   return [
     ...routes,
+    {
+      url: `${baseUrl}/blog`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
     ...productUrls,
+    ...blogUrls,
   ];
 }

@@ -62,3 +62,12 @@ model OrderItem {
   quantity  Int
   order     Order   @relation(fields: [orderId], references: [id])
 }
+
+model Referral {
+  id          String   @id @default(uuid())
+  code        String   @unique
+  referrerId  String   @default("") // In a full app, this would be a User ID
+  discountAmt Float    @default(100.0)
+  usedCount   Int      @default(0)
+  createdAt   DateTime @default(now())
+}

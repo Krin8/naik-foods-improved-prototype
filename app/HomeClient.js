@@ -14,7 +14,12 @@ export default function HomeClient({ products }) {
 
   const bestsellers = products.filter(p => p.isBestseller);
   const newArrivals = products.filter(p => p.isNew);
-  const displayCategories = categories.filter(c => c.id !== "all" && c.count > 0);
+  
+  const displayCategories = categories.map(c => ({
+    ...c,
+    count: c.id === "all" ? products.length : products.filter(p => p.category === c.id).length
+  })).filter(c => c.id !== "all" && c.count > 0);
+
   const totalProducts = products.length;
   const totalCategories = displayCategories.length;
 

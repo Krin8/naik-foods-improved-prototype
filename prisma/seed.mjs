@@ -10,6 +10,24 @@ async function main() {
   await prisma.orderItem.deleteMany({});
   await prisma.order.deleteMany({});
   await prisma.product.deleteMany({});
+  await prisma.referral.deleteMany({});
+
+  const referralCodes = [
+    { code: "FRIEND100", discountAmt: 100 },
+    { code: "WELCOME100", discountAmt: 100 },
+    { code: "PUNE50", discountAmt: 50 }
+  ];
+
+  for (const ref of referralCodes) {
+    await prisma.referral.create({
+      data: {
+        code: ref.code,
+        discountAmt: ref.discountAmt,
+        referrerId: "system"
+      }
+    });
+    console.log(`Created referral code: ${ref.code} (₹${ref.discountAmt} off)`);
+  }
 
   for (const product of products) {
     const dbProduct = await prisma.product.create({

@@ -3,6 +3,8 @@ import { CartProvider } from "@/context/CartContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PromoBanner from "@/components/PromoBanner";
+import ReferralTracker from "@/components/ReferralTracker";
+import { Suspense } from "react";
 
 export const metadata = {
   metadataBase: new URL("https://naik-foods-improved-demo.surge.sh"),
@@ -46,6 +48,9 @@ export default function RootLayout({ children }) {
       <body>
         <CartProvider>
           <PromoBanner />
+          <Suspense fallback={null}>
+            <ReferralTracker />
+          </Suspense>
           <Header />
           <main>{children}</main>
           <Footer />

@@ -64,9 +64,23 @@ export async function POST(req) {
     }
 
     let discount = 0;
+    let validReferral = null;
+    
     if (promoCode === "PROMO10") {
       discount = Math.round(subtotal * 0.10);
+    } else if (promoCode) {
+      // Check Referral table
+      const referral = await prisma.referral.findUnique({
+        where: { code: promoCode },
+      });
+      if (referral) {
+        discount = referral.discountAmt; // typically 100
+        validReferral = referral;
+      }
     }
+    
+    // Ensure discount doesn't exceed subtotal
+    discount = Math.min(discount, subtotal);
     const finalSubtotal = subtotal - discount;
 
     const shipping = finalSubtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
@@ -87,6 +101,13 @@ export async function POST(req) {
         },
       },
     });
+
+    if (validReferral) {
+      await prisma.referral.update({
+        where: { id: validReferral.id },
+        data: { usedCount: { increment: 1 } },
+      });
+    }
 
     // ======== COD PATH ========
     if (paymentMethod === "COD") {
