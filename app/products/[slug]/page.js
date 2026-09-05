@@ -1,8 +1,11 @@
 import { notFound } from "next/navigation";
-import { products } from "@/data/products";
+import { PrismaClient } from "@prisma/client";
 import ProductDetailClient from "./ProductDetailClient";
 
-export function generateStaticParams() {
+const prisma = new PrismaClient();
+
+export async function generateStaticParams() {
+  const products = await prisma.product.findMany({ select: { slug: true } });
   return products.map((product) => ({
     slug: product.slug,
   }));
@@ -11,7 +14,7 @@ export function generateStaticParams() {
 export default async function ProductDetailPage({ params }) {
   const resolvedParams = await params;
   const { slug } = resolvedParams;
-  const product = products.find((p) => p.slug === slug);
+  const product = await prisma.product.findUnique({ where: { slug } });
 
   if (!product) return notFound();
 
@@ -35,11 +38,35 @@ export default async function ProductDetailPage({ params }) {
     },
   };
 
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://naik-foods-improved-demo.surge.sh"
+    },{
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Store",
+      "item": "https://naik-foods-improved-demo.surge.sh/store"
+    },{
+      "@type": "ListItem",
+      "position": 3,
+      "name": product.name
+    }]
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
       />
       <ProductDetailClient product={product} />
     </>

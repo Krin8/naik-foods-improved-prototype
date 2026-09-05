@@ -31,27 +31,38 @@ export default function ProductDetailClient({ product }) {
     setTimeout(() => setAdded(false), 1200);
   };
 
-  const handlePincodeCheck = () => {
+  const handlePincodeCheck = async () => {
     if (pincode.length !== 6 || !/^\d{6}$/.test(pincode)) {
       setPincodeStatus("error");
       return;
     }
     
-    // Simulate check against a mock database of serviceable PINs
     setPincodeStatus("checking");
-    setTimeout(() => {
-      // In a real app, this would hit an API. We'll simulate that PINs starting with 1-4 are serviceable, 
-      // 5-8 take longer, and 9 is unserviceable (except 999999 which we'll say is invalid).
-      const firstDigit = parseInt(pincode[0]);
-      
-      if (firstDigit === 9) {
+
+    try {
+      const res = await fetch("/api/shipping/serviceability", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ pincode }),
+      });
+      const data = await res.json();
+
+      if (!res.ok || data.error) {
+        setPincodeStatus("error");
+        return;
+      }
+
+      if (!data.serviceable) {
         setPincodeStatus("unserviceable");
-      } else if (firstDigit >= 5) {
+      } else if (data.eta === "7-10 days") {
         setPincodeStatus("extended");
       } else {
         setPincodeStatus("success");
       }
-    }, 800);
+    } catch (err) {
+      console.error(err);
+      setPincodeStatus("error");
+    }
   };
 
   return (
