@@ -118,11 +118,26 @@ export async function POST(req) {
         include: { items: true },
       });
       await sendOrderConfirmation(fullOrder);
+      
+      // Generate referral code
+      const generatedCode = address.firstName ? `${address.firstName.toUpperCase()}100` : `FRIEND${order.id.substring(0, 4).toUpperCase()}`;
+      try {
+        await prisma.referral.upsert({
+          where: { code: generatedCode },
+          update: {},
+          create: {
+            code: generatedCode,
+            discountAmt: 100.0,
+            referrerId: order.id,
+          }
+        });
+      } catch (e) { console.error(e) }
 
       return NextResponse.json({
         orderId: order.id,
         paymentMethod: "COD",
         total,
+        referralCode: generatedCode,
       });
     }
 

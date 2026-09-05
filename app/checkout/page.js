@@ -13,14 +13,43 @@ export default function CheckoutPage() {
   const [orderId, setOrderId] = useState(null);
   const [errorMsg, setErrorMsg] = useState("");
   const [promoCode, setPromoCode] = useState("");
+  const [discountAmt, setDiscountAmt] = useState(0);
+  const [referralCode, setReferralCode] = useState("");
+
+  const validatePromo = async (code) => {
+    if (!code) {
+      setDiscountAmt(0);
+      return;
+    }
+    try {
+      const res = await fetch("/api/checkout/validate-promo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ promoCode: code, subtotal }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setDiscountAmt(data.discount || 0);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   // Initialize promo code from localStorage
   useEffect(() => {
     const savedPromo = localStorage.getItem("promoCode");
     if (savedPromo) {
       setPromoCode(savedPromo.toUpperCase());
+      validatePromo(savedPromo.toUpperCase());
     }
-  }, []);
+  }, [subtotal]); // re-validate if subtotal changes
+
+  const handlePromoChange = (e) => {
+    const val = e.target.value.toUpperCase();
+    setPromoCode(val);
+    validatePromo(val);
+  };
 
   // Address state (controlled)
   const [address, setAddress] = useState({
@@ -103,6 +132,7 @@ export default function CheckoutPage() {
       if (paymentMethod === "COD") {
         setIsProcessing(false);
         setOrderId(data.orderId);
+        setReferralCode(data.referralCode);
         clearCart();
         setStep(3);
         return;
@@ -133,6 +163,7 @@ export default function CheckoutPage() {
             
             setIsProcessing(false);
             setOrderId(data.orderId);
+            setReferralCode(verifyData.referralCode);
             clearCart();
             setStep(3);
           } catch (err) {
@@ -257,7 +288,7 @@ export default function CheckoutPage() {
                 <h3 style={{ color: "var(--green-700)", marginBottom: "0.5rem" }}>Give ₹100, Get ₹100!</h3>
                 <p style={{ fontSize: "0.95rem", color: "var(--text-secondary)", marginBottom: "1rem" }}>Share this code with your friends and they get ₹100 off their first order.</p>
                 <div style={{ background: "var(--gray-100)", padding: "0.5rem 1rem", borderRadius: "4px", fontWeight: "bold", fontSize: "1.2rem", letterSpacing: "1px" }}>
-                  {address.firstName ? address.firstName.toUpperCase() + "100" : "FRIEND100"}
+                  {referralCode || "FRIEND100"}
                 </div>
               </div>
 
@@ -298,7 +329,7 @@ export default function CheckoutPage() {
                 type="text" 
                 placeholder="Promo Code" 
                 value={promoCode} 
-                onChange={(e) => setPromoCode(e.target.value.toUpperCase())}
+                onChange={handlePromoChange}
                 style={{ ...inputStyle, padding: "8px 12px" }}
               />
             </div>
@@ -307,10 +338,10 @@ export default function CheckoutPage() {
               <span style={{ color: "var(--text-secondary)" }}>Subtotal</span>
               <span>₹{subtotal.toFixed(2)}</span>
             </div>
-            {promoCode && (
+            {discountAmt > 0 && (
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.5rem", fontSize: "0.95rem", color: "var(--green-600)", fontWeight: "600" }}>
                 <span>Discount</span>
-                <span>- ₹{promoCode === "PROMO10" ? Math.round(subtotal * 0.10) : (promoCode.length > 3 ? 100 : 0)}</span>
+                <span>- ₹{discountAmt}</span>
               </div>
             )}
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "1rem", fontSize: "0.95rem" }}>
@@ -319,7 +350,7 @@ export default function CheckoutPage() {
             </div>
             <div style={{ display: "flex", justifyContent: "space-between", paddingTop: "1rem", borderTop: "1px solid var(--border-color)", fontSize: "1.2rem", fontWeight: "800" }}>
               <span>Total</span>
-              <span>₹{Math.max(0, subtotal - (promoCode === "PROMO10" ? Math.round(subtotal * 0.10) : (promoCode.length > 3 ? 100 : 0)) + shipping).toFixed(2)}</span>
+              <span>₹{Math.max(0, subtotal - discountAmt + shipping).toFixed(2)}</span>
             </div>
           </div>
         )}

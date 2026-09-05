@@ -46,7 +46,6 @@ These syrups, straight from Mahabaleshwar, carry the authentic, rich flavor of r
     author: "Naik Foods Kitchen",
     image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601337/homemade-bhakarwadi_zq9mhw.webp",
     content: `
-    content: `
 Bhakarwadi is more than just a snack; it's a culinary icon of Pune. But its origins are heavily debated.
 
 ### The Anatomy of a Perfect Bhakarwadi
