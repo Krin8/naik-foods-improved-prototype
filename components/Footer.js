@@ -43,9 +43,9 @@ export default function Footer() {
         <div className="footer-bottom">
           <span>© {new Date().getFullYear()} Naik Foods. All rights reserved.</span>
           <div className="footer-socials">
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="footer-social-link" aria-label="Instagram">📷</a>
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="footer-social-link" aria-label="Facebook">📘</a>
-            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="footer-social-link" aria-label="YouTube">▶️</a>
+            <a href="https://www.instagram.com/naikfoods/" target="_blank" rel="noopener noreferrer" className="footer-social-link" aria-label="Instagram">📷</a>
+            <a href="https://www.facebook.com/naikfoods" target="_blank" rel="noopener noreferrer" className="footer-social-link" aria-label="Facebook">📘</a>
+            <a href="https://www.youtube.com/@naikfoods" target="_blank" rel="noopener noreferrer" className="footer-social-link" aria-label="YouTube">▶️</a>
           </div>
         </div>
       </div>

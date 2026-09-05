@@ -6,6 +6,7 @@ const prisma = new PrismaClient();
 async function main() {
   console.log("Seeding database...");
 
+  // Delete existing records to avoid duplicates on re-runs
   await prisma.orderItem.deleteMany({});
   await prisma.order.deleteMany({});
   await prisma.product.deleteMany({});
@@ -17,21 +18,35 @@ async function main() {
         name: product.name,
         brand: product.brand,
         description: product.description,
+        shortDesc: product.shortDesc || "",
         price: product.price,
         originalPrice: product.originalPrice,
+        discount: product.discount || 0,
         weight: product.weight,
         category: product.category,
         region: product.region,
         image: product.image,
-        inStock: product.inStock,
-        isNew: product.isNew,
-        isBestseller: product.isBestseller,
+        images: JSON.stringify(product.images || []),
+        rating: product.rating || 0,
+        reviews: product.reviews || 0,
+        tags: JSON.stringify(product.tags || []),
+        highlights: JSON.stringify(product.highlights || []),
+        variants: JSON.stringify(product.variants || []),
+        fssai: product.fssai || "",
+        ingredients: product.ingredients || "",
+        nutrition: product.nutrition || "",
+        allergens: product.allergens || "",
+        shelfLife: product.shelfLife || "",
+        isVegetarian: product.isVegetarian !== false,
+        inStock: product.inStock !== false,
+        isNew: product.isNew || false,
+        isBestseller: product.isBestseller || false,
       },
     });
-    console.log(`Created product: ${dbProduct.name}`);
+    console.log(`Created product: ${dbProduct.name} (rating: ${dbProduct.rating}, reviews: ${dbProduct.reviews}, discount: ${dbProduct.discount}%)`);
   }
 
-  console.log("Seeding finished.");
+  console.log(`\nSeeded ${products.length} products successfully.`);
 }
 
 main()

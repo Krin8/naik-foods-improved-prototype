@@ -11,6 +11,21 @@ export default function CheckoutPage() {
   const [step, setStep] = useState(1);
   const [isProcessing, setIsProcessing] = useState(false);
   const [orderId, setOrderId] = useState(null);
+  const [errorMsg, setErrorMsg] = useState("");
+
+  // Address state (controlled)
+  const [address, setAddress] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    street: "",
+    city: "",
+    pincode: "",
+  });
+
+  // Payment method state
+  const [paymentMethod, setPaymentMethod] = useState("UPI");
 
   // Redirect to store if cart is empty and not on success step
   useEffect(() => {
@@ -19,20 +34,31 @@ export default function CheckoutPage() {
     }
   }, [isLoaded, items.length, step, router]);
 
+  const handleAddressChange = (field, value) => {
+    setAddress(prev => ({ ...prev, [field]: value }));
+  };
+
   const handleSubmitAddress = (e) => {
     e.preventDefault();
+    setErrorMsg("");
     setStep(2);
   };
 
   const handlePlaceOrder = async () => {
     setIsProcessing(true);
+    setErrorMsg("");
+
+    const payload = {
+      items: items.map(i => ({ id: i.id, slug: i.slug, quantity: i.quantity, variantIndex: i.variantIndex })),
+      address,
+      paymentMethod,
+    };
 
     try {
-      // 1. Initialize Order in DB and Razorpay via API
       const response = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ items, subtotal, shipping, total }),
+        body: JSON.stringify(payload),
       });
 
       const data = await response.json();
@@ -41,7 +67,16 @@ export default function CheckoutPage() {
         throw new Error(data.error || "Failed to initialize checkout");
       }
 
-      // 2. Configure Razorpay Options
+      // COD orders skip Razorpay
+      if (paymentMethod === "COD") {
+        setIsProcessing(false);
+        setOrderId(data.orderId);
+        clearCart();
+        setStep(3);
+        return;
+      }
+
+      // Razorpay flow for UPI / Card
       const options = {
         key: data.key,
         amount: data.amount,
@@ -49,40 +84,38 @@ export default function CheckoutPage() {
         name: "Naik Foods",
         description: "Authentic Maharashtrian Delicacies",
         order_id: data.razorpayOrderId,
-        handler: function (response) {
-          // On Success
+        handler: function () {
           setIsProcessing(false);
           setOrderId(data.orderId);
           clearCart();
           setStep(3);
         },
         prefill: {
-          name: "Test User",
-          email: "test@example.com",
-          contact: "9999999999"
+          name: `${address.firstName} ${address.lastName}`,
+          email: address.email,
+          contact: address.phone,
         },
         theme: {
           color: "#22c55e"
         }
       };
 
-      // 3. Open Razorpay Checkout Modal
       const rzp = new window.Razorpay(options);
-      rzp.on("payment.failed", function (response) {
+      rzp.on("payment.failed", function () {
         setIsProcessing(false);
-        alert("Payment Failed. Please try again.");
+        setErrorMsg("Payment failed. Please try again or choose a different payment method.");
       });
       rzp.open();
 
     } catch (error) {
       console.error(error);
-      alert(error.message);
+      setErrorMsg(error.message);
       setIsProcessing(false);
     }
   };
 
   if (!isLoaded || (items.length === 0 && step !== 3)) {
-    return null; // Prevents flashing before redirect
+    return null;
   }
 
   return (
@@ -90,6 +123,12 @@ export default function CheckoutPage() {
       <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
       {step < 3 && <h1 style={{ marginBottom: "2rem", fontFamily: "var(--font-display)", fontWeight: "800" }}>Secure Checkout</h1>}
       
+      {errorMsg && (
+        <div style={{ padding: "1rem", background: "#fef2f2", border: "1px solid #fecaca", borderRadius: "8px", color: "#dc2626", marginBottom: "1.5rem", fontSize: "0.95rem" }}>
+          {errorMsg}
+        </div>
+      )}
+
       <div style={{ display: "grid", gridTemplateColumns: step === 3 ? "1fr" : "1.5fr 1fr", gap: "3rem" }}>
         
         {/* Main Content Area */}
@@ -99,15 +138,15 @@ export default function CheckoutPage() {
               <h2 style={{ marginBottom: "1.5rem", fontSize: "1.2rem", fontWeight: "700" }}>1. Shipping Address</h2>
               <form onSubmit={handleSubmitAddress} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
-                  <input required type="text" placeholder="First Name" style={inputStyle} />
-                  <input required type="text" placeholder="Last Name" style={inputStyle} />
+                  <input required type="text" placeholder="First Name" value={address.firstName} onChange={e => handleAddressChange("firstName", e.target.value)} style={inputStyle} />
+                  <input required type="text" placeholder="Last Name" value={address.lastName} onChange={e => handleAddressChange("lastName", e.target.value)} style={inputStyle} />
                 </div>
-                <input required type="email" placeholder="Email Address" style={inputStyle} />
-                <input required type="text" placeholder="Phone Number" style={inputStyle} />
-                <input required type="text" placeholder="Street Address" style={inputStyle} />
+                <input required type="email" placeholder="Email Address" value={address.email} onChange={e => handleAddressChange("email", e.target.value)} style={inputStyle} />
+                <input required type="tel" placeholder="Phone Number" value={address.phone} onChange={e => handleAddressChange("phone", e.target.value)} style={inputStyle} />
+                <input required type="text" placeholder="Street Address" value={address.street} onChange={e => handleAddressChange("street", e.target.value)} style={inputStyle} />
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
-                  <input required type="text" placeholder="City" style={inputStyle} />
-                  <input required type="text" placeholder="Pincode (e.g. 411001)" style={inputStyle} />
+                  <input required type="text" placeholder="City" value={address.city} onChange={e => handleAddressChange("city", e.target.value)} style={inputStyle} />
+                  <input required type="text" placeholder="Pincode (e.g. 411001)" pattern="[0-9]{6}" title="Enter a valid 6-digit pincode" value={address.pincode} onChange={e => handleAddressChange("pincode", e.target.value)} style={inputStyle} />
                 </div>
                 <button type="submit" style={btnStyle}>Continue to Payment →</button>
               </form>
@@ -119,16 +158,25 @@ export default function CheckoutPage() {
               <h2 style={{ marginBottom: "1.5rem", fontSize: "1.2rem", fontWeight: "700" }}>2. Payment Method</h2>
               
               <div style={{ display: "flex", flexDirection: "column", gap: "1rem", marginBottom: "2rem" }}>
-                <label style={{ display: "flex", alignItems: "center", gap: "1rem", padding: "1rem", border: "1px solid var(--green-400)", borderRadius: "8px", background: "var(--green-50)", cursor: "pointer" }}>
-                  <input type="radio" name="payment" defaultChecked style={{ accentColor: "var(--green-500)", width: "18px", height: "18px" }} />
+                <label
+                  style={{ display: "flex", alignItems: "center", gap: "1rem", padding: "1rem", border: `1px solid ${paymentMethod === "UPI" ? "var(--green-400)" : "var(--border-color)"}`, borderRadius: "8px", background: paymentMethod === "UPI" ? "var(--green-50)" : "white", cursor: "pointer" }}
+                  onClick={() => setPaymentMethod("UPI")}
+                >
+                  <input type="radio" name="payment" checked={paymentMethod === "UPI"} onChange={() => setPaymentMethod("UPI")} style={{ accentColor: "var(--green-500)", width: "18px", height: "18px" }} />
                   <span style={{ fontWeight: "600" }}>UPI (Google Pay, PhonePe, Paytm)</span>
                 </label>
-                <label style={{ display: "flex", alignItems: "center", gap: "1rem", padding: "1rem", border: "1px solid var(--border-color)", borderRadius: "8px", cursor: "pointer" }}>
-                  <input type="radio" name="payment" style={{ accentColor: "var(--green-500)", width: "18px", height: "18px" }} />
+                <label
+                  style={{ display: "flex", alignItems: "center", gap: "1rem", padding: "1rem", border: `1px solid ${paymentMethod === "CARD" ? "var(--green-400)" : "var(--border-color)"}`, borderRadius: "8px", background: paymentMethod === "CARD" ? "var(--green-50)" : "white", cursor: "pointer" }}
+                  onClick={() => setPaymentMethod("CARD")}
+                >
+                  <input type="radio" name="payment" checked={paymentMethod === "CARD"} onChange={() => setPaymentMethod("CARD")} style={{ accentColor: "var(--green-500)", width: "18px", height: "18px" }} />
                   <span style={{ fontWeight: "600" }}>Credit / Debit Card</span>
                 </label>
-                <label style={{ display: "flex", alignItems: "center", gap: "1rem", padding: "1rem", border: "1px solid var(--border-color)", borderRadius: "8px", cursor: "pointer" }}>
-                  <input type="radio" name="payment" style={{ accentColor: "var(--green-500)", width: "18px", height: "18px" }} />
+                <label
+                  style={{ display: "flex", alignItems: "center", gap: "1rem", padding: "1rem", border: `1px solid ${paymentMethod === "COD" ? "var(--green-400)" : "var(--border-color)"}`, borderRadius: "8px", background: paymentMethod === "COD" ? "var(--green-50)" : "white", cursor: "pointer" }}
+                  onClick={() => setPaymentMethod("COD")}
+                >
+                  <input type="radio" name="payment" checked={paymentMethod === "COD"} onChange={() => setPaymentMethod("COD")} style={{ accentColor: "var(--green-500)", width: "18px", height: "18px" }} />
                   <span style={{ fontWeight: "600" }}>Cash on Delivery (COD)</span>
                 </label>
               </div>
@@ -136,7 +184,7 @@ export default function CheckoutPage() {
               <div style={{ display: "flex", gap: "1rem" }}>
                 <button type="button" onClick={() => setStep(1)} style={{ ...btnStyle, background: "var(--gray-200)", color: "var(--text-primary)" }}>← Back</button>
                 <button type="button" onClick={handlePlaceOrder} disabled={isProcessing} style={{ ...btnStyle, flex: 1, opacity: isProcessing ? 0.7 : 1 }}>
-                  {isProcessing ? "Processing..." : `Place Order (₹${total})`}
+                  {isProcessing ? "Processing..." : paymentMethod === "COD" ? `Place COD Order (₹${total})` : `Pay ₹${total}`}
                 </button>
               </div>
             </div>

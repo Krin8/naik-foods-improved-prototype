@@ -3,6 +3,8 @@ import { PrismaClient } from "@prisma/client";
 import Razorpay from "razorpay";
 
 const prisma = new PrismaClient();
+const SHIPPING_FEE = 60;
+const FREE_SHIPPING_THRESHOLD = 999;
 
 const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID || "rzp_test_mock_12345",
@@ -11,56 +13,106 @@ const razorpay = new Razorpay({
 
 export async function POST(req) {
   try {
-    const { items, subtotal, shipping, total } = await req.json();
+    const { items, address, paymentMethod } = await req.json();
 
     if (!items || items.length === 0) {
       return NextResponse.json({ error: "Cart is empty" }, { status: 400 });
     }
 
-    // In a real app, we would re-calculate `total` from the database `Product` table
-    // to prevent browser-side tampering. For this prototype, we'll accept the total 
-    // but validate the structure.
+    if (!address || !address.firstName || !address.email || !address.phone || !address.street || !address.city || !address.pincode) {
+      return NextResponse.json({ error: "Incomplete address information" }, { status: 400 });
+    }
 
-    // 1. Create order in our Database
+    // ======== SERVER-SIDE PRICE CALCULATION ========
+    // Fetch actual product prices from the database — never trust client totals.
+    const slugs = items.map(i => i.slug).filter(Boolean);
+    const dbProducts = await prisma.product.findMany({
+      where: { slug: { in: slugs } },
+    });
+
+    const productMap = {};
+    for (const p of dbProducts) {
+      productMap[p.slug] = p;
+    }
+
+    let subtotal = 0;
+    const orderItems = [];
+
+    for (const item of items) {
+      const dbProduct = productMap[item.slug];
+      if (!dbProduct) {
+        return NextResponse.json({ error: `Product not found: ${item.slug}` }, { status: 400 });
+      }
+
+      // If a variant was selected, parse variants JSON and use variant price
+      let unitPrice = dbProduct.price;
+      if (item.variantIndex !== undefined && item.variantIndex !== null) {
+        try {
+          const variants = JSON.parse(dbProduct.variants || "[]");
+          if (variants[item.variantIndex]) {
+            unitPrice = variants[item.variantIndex].price;
+          }
+        } catch { /* use default price */ }
+      }
+
+      subtotal += unitPrice * item.quantity;
+      orderItems.push({
+        productId: dbProduct.id,
+        name: dbProduct.name,
+        price: unitPrice,
+        quantity: item.quantity,
+      });
+    }
+
+    const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
+    const total = subtotal + shipping;
+
+    // ======== CREATE ORDER IN DATABASE ========
     const order = await prisma.order.create({
       data: {
         totalAmount: total,
-        status: "PENDING",
+        status: paymentMethod === "COD" ? "PENDING_COD" : "PENDING",
+        paymentMethod: paymentMethod || "UPI",
+        customerName: `${address.firstName} ${address.lastName}`,
+        customerEmail: address.email,
+        customerPhone: address.phone,
+        shippingAddress: `${address.street}, ${address.city} - ${address.pincode}`,
         items: {
-          create: items.map(item => ({
-            productId: String(item.id),
-            name: item.name,
-            price: item.price,
-            quantity: item.quantity
-          }))
-        }
-      }
+          create: orderItems,
+        },
+      },
     });
 
-    // 2. Initialize Razorpay Order
-    // Razorpay amount is in smallest currency unit (paise)
-    const options = {
-      amount: Math.round(total * 100), 
+    // ======== COD PATH ========
+    if (paymentMethod === "COD") {
+      return NextResponse.json({
+        orderId: order.id,
+        paymentMethod: "COD",
+        total,
+      });
+    }
+
+    // ======== RAZORPAY PATH ========
+    const razorpayOptions = {
+      amount: Math.round(total * 100), // paise
       currency: "INR",
       receipt: order.id,
     };
 
     let razorpayOrder;
-    // We try to create a real Razorpay order if valid keys exist, otherwise mock it.
     if (process.env.RAZORPAY_KEY_ID?.startsWith("rzp_test") && process.env.RAZORPAY_KEY_ID !== "rzp_test_mock_12345") {
-      razorpayOrder = await razorpay.orders.create(options);
+      razorpayOrder = await razorpay.orders.create(razorpayOptions);
     } else {
-      // Mock Razorpay response
+      // Mock Razorpay response for development
       razorpayOrder = {
         id: `order_mock_${Date.now()}`,
-        amount: options.amount,
+        amount: razorpayOptions.amount,
       };
     }
 
-    // 3. Update Order with Razorpay ID
     await prisma.order.update({
       where: { id: order.id },
-      data: { razorpayId: razorpayOrder.id }
+      data: { razorpayId: razorpayOrder.id },
     });
 
     return NextResponse.json({
@@ -69,9 +121,8 @@ export async function POST(req) {
       amount: razorpayOrder.amount,
       key: process.env.RAZORPAY_KEY_ID,
     });
-    
   } catch (error) {
     console.error("Checkout Error:", error);
-    return NextResponse.json({ error: "Checkout failed" }, { status: 500 });
+    return NextResponse.json({ error: "Checkout failed. Please try again." }, { status: 500 });
   }
 }

@@ -69,7 +69,7 @@ export function CartProvider({ children }) {
 
   const subtotal = items.reduce((sum, i) => sum + i.price * i.quantity, 0);
   const totalItems = items.reduce((sum, i) => sum + i.quantity, 0);
-  const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : 50;
+  const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : 60;
   const total = subtotal + shipping;
   const amountToFreeShipping = Math.max(0, FREE_SHIPPING_THRESHOLD - subtotal);
   const freeShippingProgress = Math.min(100, (subtotal / FREE_SHIPPING_THRESHOLD) * 100);

@@ -4,6 +4,28 @@ import ProductDetailClient from "./ProductDetailClient";
 
 const prisma = new PrismaClient();
 
+export async function generateMetadata({ params }) {
+  const resolvedParams = await params;
+  const product = await prisma.product.findUnique({ where: { slug: resolvedParams.slug } });
+  if (!product) return { title: "Product Not Found" };
+
+  return {
+    title: `${product.name} by ${product.brand} | Naik Foods`,
+    description: product.description,
+    openGraph: {
+      title: `${product.name} — ₹${product.price}`,
+      description: product.description,
+      images: [product.image],
+      url: `https://naik-foods-improved-demo.surge.sh/products/${product.slug}`,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${product.name} by ${product.brand}`,
+      description: product.description,
+      images: [product.image],
+    },
+  };
+}
 export async function generateStaticParams() {
   const products = await prisma.product.findMany({ select: { slug: true } });
   return products.map((product) => ({
@@ -14,9 +36,18 @@ export async function generateStaticParams() {
 export default async function ProductDetailPage({ params }) {
   const resolvedParams = await params;
   const { slug } = resolvedParams;
-  const product = await prisma.product.findUnique({ where: { slug } });
+  const rawProduct = await prisma.product.findUnique({ where: { slug } });
 
-  if (!product) return notFound();
+  if (!rawProduct) return notFound();
+
+  // Parse JSON string fields back into arrays for the client component
+  const product = {
+    ...rawProduct,
+    images: JSON.parse(rawProduct.images || "[]"),
+    tags: JSON.parse(rawProduct.tags || "[]"),
+    highlights: JSON.parse(rawProduct.highlights || "[]"),
+    variants: JSON.parse(rawProduct.variants || "[]"),
+  };
 
   const jsonLd = {
     "@context": "https://schema.org/",

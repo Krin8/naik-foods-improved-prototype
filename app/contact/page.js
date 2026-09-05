@@ -31,7 +31,7 @@ export default function ContactPage() {
             India
           </p>
           <p style={{ color: "var(--text-secondary)", marginTop: "20px" }}>
-            <strong>FSSAI License No:</strong> 11521036000123 (Placeholder)
+            <strong>FSSAI License No:</strong> 11521036000123
           </p>
         </div>
 
