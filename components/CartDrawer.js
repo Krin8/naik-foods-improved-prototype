@@ -93,7 +93,13 @@ export default function CartDrawer() {
               <span>Total</span>
               <span>₹{total.toFixed(2)}</span>
             </div>
-            <button className="cart-checkout-btn">
+            <button 
+              className="cart-checkout-btn"
+              onClick={() => {
+                setIsCartOpen(false);
+                window.location.href = "/checkout";
+              }}
+            >
               Proceed to Checkout →
             </button>
           </div>

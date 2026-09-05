@@ -104,6 +104,10 @@ export const products = [
     highlights: ["Authentic Maharashtrian recipe", "Light & flaky layers", "Preservative free", "Festive delicacy"],
     inStock: true,
     isBestseller: true,
+    variants: [
+      { weight: "200g", price: 85, originalPrice: 85, discount: 0 },
+      { weight: "500g", price: 200, originalPrice: 220, discount: 9 }
+    ]
   },
   {
     id: 5,
@@ -128,6 +132,10 @@ export const products = [
     highlights: ["Authentic Kolhapuri recipe", "Stone-ground preparation", "No preservatives", "Rich, fiery flavor"],
     inStock: true,
     isBestseller: true,
+    variants: [
+      { weight: "200g", price: 150, originalPrice: 180, discount: 17 },
+      { weight: "400g", price: 280, originalPrice: 350, discount: 20 }
+    ]
   },
   {
     id: 6,

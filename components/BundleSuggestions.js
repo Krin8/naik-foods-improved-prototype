@@ -15,7 +15,7 @@ export default function BundleSuggestions({ currentSlug, onQuickView }) {
   return (
     <div className="bundle-section">
       <div className="container">
-        <h2 className="bundle-title">🤝 Frequently Bought Together</h2>
+        <h2 className="bundle-title">🤝 Complete your Maharashtrian snack box</h2>
         <div className="bundle-grid">
           {bundleProducts.map(product => (
             <ProductCard key={product.id} product={product} onQuickView={onQuickView} />
