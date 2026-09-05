@@ -4,7 +4,7 @@ import { posts } from "@/data/blog";
 export const dynamic = "force-static";
 
 export default function sitemap() {
-  const baseUrl = "https://naik-foods-improved-demo.surge.sh";
+  const baseUrl = "https://naikfoods.co.in";
 
   const routes = ["", "/store", "/about", "/contact", "/policies"].map((route) => ({
     url: `${baseUrl}${route}`,

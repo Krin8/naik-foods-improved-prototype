@@ -78,14 +78,23 @@ export default async function BlogPostPage({ params }) {
 
   const articleLd = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": post.isRecipe ? "Recipe" : "Article",
     "headline": post.title,
+    "name": post.title,
     "image": [post.image],
     "datePublished": post.date,
     "author": [{
         "@type": "Person",
         "name": post.author,
-    }]
+    }],
+    ...(post.isRecipe && {
+      "description": post.excerpt,
+      "recipeIngredient": post.ingredients || [],
+      "recipeInstructions": post.instructions || [],
+      "prepTime": post.prepTime || "PT15M",
+      "cookTime": post.cookTime || "PT30M",
+      "recipeYield": post.yield || "4 servings"
+    })
   };
 
   return (

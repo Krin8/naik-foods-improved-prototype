@@ -252,6 +252,15 @@ export default function CheckoutPage() {
                 <strong style={{ fontSize: "1.2rem", display: "block", marginBottom: "0.5rem" }}>{orderId}</strong>
                 <Link href="/orders/track" style={{ fontSize: "0.9rem", color: "var(--green-600)", textDecoration: "underline" }}>Track Order</Link>
               </div>
+              
+              <div style={{ background: "white", padding: "1.5rem", borderRadius: "8px", border: "1px dashed var(--green-400)", marginBottom: "2rem", display: "inline-block" }}>
+                <h3 style={{ color: "var(--green-700)", marginBottom: "0.5rem" }}>Give ₹100, Get ₹100!</h3>
+                <p style={{ fontSize: "0.95rem", color: "var(--text-secondary)", marginBottom: "1rem" }}>Share this code with your friends and they get ₹100 off their first order.</p>
+                <div style={{ background: "var(--gray-100)", padding: "0.5rem 1rem", borderRadius: "4px", fontWeight: "bold", fontSize: "1.2rem", letterSpacing: "1px" }}>
+                  {address.firstName ? address.firstName.toUpperCase() + "100" : "FRIEND100"}
+                </div>
+              </div>
+
               <div style={{ display: "flex", gap: "1rem", justifyContent: "center" }}>
                 <Link href="/store" style={{ ...btnStyle, display: "inline-block", textDecoration: "none", width: "auto", padding: "12px 24px" }}>Continue Shopping</Link>
                 <a 
@@ -298,13 +307,19 @@ export default function CheckoutPage() {
               <span style={{ color: "var(--text-secondary)" }}>Subtotal</span>
               <span>₹{subtotal.toFixed(2)}</span>
             </div>
+            {promoCode && (
+              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.5rem", fontSize: "0.95rem", color: "var(--green-600)", fontWeight: "600" }}>
+                <span>Discount</span>
+                <span>- ₹{promoCode === "PROMO10" ? Math.round(subtotal * 0.10) : (promoCode.length > 3 ? 100 : 0)}</span>
+              </div>
+            )}
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "1rem", fontSize: "0.95rem" }}>
               <span style={{ color: "var(--text-secondary)" }}>Shipping</span>
               <span>{shipping === 0 ? <span style={{ color: "var(--green-600)", fontWeight: "600" }}>FREE</span> : `₹${shipping.toFixed(2)}`}</span>
             </div>
             <div style={{ display: "flex", justifyContent: "space-between", paddingTop: "1rem", borderTop: "1px solid var(--border-color)", fontSize: "1.2rem", fontWeight: "800" }}>
               <span>Total</span>
-              <span>₹{total.toFixed(2)}</span>
+              <span>₹{Math.max(0, subtotal - (promoCode === "PROMO10" ? Math.round(subtotal * 0.10) : (promoCode.length > 3 ? 100 : 0)) + shipping).toFixed(2)}</span>
             </div>
           </div>
         )}

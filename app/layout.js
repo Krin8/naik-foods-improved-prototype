@@ -7,14 +7,14 @@ import ReferralTracker from "@/components/ReferralTracker";
 import { Suspense } from "react";
 
 export const metadata = {
-  metadataBase: new URL("https://naik-foods-improved-demo.surge.sh"),
+  metadataBase: new URL("https://naikfoods.co.in"),
   title: "Naik Foods | Authentic Maharashtrian Delicacies & Masalas",
   description: "Order traditional Maharashtrian masalas, pickles, and food specialties from Vidarbha, Marathwada, Konkan & Pune. Hand-pounded, authentic, delivered fresh.",
   keywords: "Naik Foods, Maharashtrian food, Vidarbha masalas, authentic pickles, Indian spices, Pune food store",
   openGraph: {
     title: "Naik Foods | Authentic Maharashtrian Delicacies",
     description: "Hand-pounded masalas, traditional pickles, and farm-fresh staples.",
-    url: "https://naik-foods-improved-demo.surge.sh",
+    url: "https://naikfoods.co.in",
     siteName: "Naik Foods",
     locale: "en_IN",
     type: "website",

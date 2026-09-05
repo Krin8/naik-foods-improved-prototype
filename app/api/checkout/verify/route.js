@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import crypto from "crypto";
+import { sendOrderConfirmation } from "@/lib/email";
 
 export async function POST(req) {
   try {
@@ -19,6 +20,13 @@ export async function POST(req) {
         where: { id: orderId },
         data: { status: "PAID" },
       });
+      
+      const fullOrder = await prisma.order.findUnique({
+        where: { id: orderId },
+        include: { items: true },
+      });
+      await sendOrderConfirmation(fullOrder);
+
       return NextResponse.json({ verified: true, orderId });
     }
 
@@ -45,6 +53,12 @@ export async function POST(req) {
         razorpayId: razorpay_payment_id,
       },
     });
+
+    const fullOrder = await prisma.order.findUnique({
+      where: { id: orderId },
+      include: { items: true },
+    });
+    await sendOrderConfirmation(fullOrder);
 
     return NextResponse.json({ verified: true, orderId });
   } catch (error) {

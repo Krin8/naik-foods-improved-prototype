@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import Razorpay from "razorpay";
+import { sendOrderConfirmation } from "@/lib/email";
 
 const SHIPPING_FEE = 60;
 const FREE_SHIPPING_THRESHOLD = 999;
@@ -111,6 +112,13 @@ export async function POST(req) {
 
     // ======== COD PATH ========
     if (paymentMethod === "COD") {
+      // Re-fetch order with items for email template
+      const fullOrder = await prisma.order.findUnique({
+        where: { id: order.id },
+        include: { items: true },
+      });
+      await sendOrderConfirmation(fullOrder);
+
       return NextResponse.json({
         orderId: order.id,
         paymentMethod: "COD",

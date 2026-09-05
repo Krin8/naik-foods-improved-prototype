@@ -1,13 +1,13 @@
 const rawCategories = [
-  { id: "all", name: "All Categories", icon: "🏠", count: 115 },
-  { id: "snacks-and-namkeen", name: "Snacks & Namkeen", image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748598684/snacks_category_bthhwe.webp", count: 105 },
-  { id: "pickles-and-condiments", name: "Pickles & Condiments", image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748598685/pickles_category_o09v7z.webp", count: 14 },
-  { id: "sweets-and-bakery", name: "Sweets & Bakery", image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748598684/sweets_category_s99dui.webp", count: 25 },
-  { id: "dairy-and-beverages", name: "Dairy & Beverages", image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748598685/dairy_category_yq3hpw.webp", count: 15 },
-  { id: "mukhvas-and-digestives", name: "Mukhvas & Digestives", image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748598685/mukhvas_category_kqjghd.webp", count: 6 },
-  { id: "spices-and-masalas", name: "Spices & Masalas", image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748598685/spices_category_q9rtxy.webp", count: 8 },
-  { id: "dry-instant-grocery", name: "Dry / Instant Grocery", image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748598685/grocery_category_lk4rtu.webp", count: 12 },
-  { id: "gift-boxes", name: "Gift Boxes & Hampers", image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601335/shrewsbury-cookies_hjk9wz.webp", count: 3 },
+  { id: "all", name: "All Categories", icon: "🏠" },
+  { id: "snacks-and-namkeen", name: "Snacks & Namkeen", image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748598684/snacks_category_bthhwe.webp" },
+  { id: "pickles-and-condiments", name: "Pickles & Condiments", image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748598685/pickles_category_o09v7z.webp" },
+  { id: "sweets-and-bakery", name: "Sweets & Bakery", image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748598684/sweets_category_s99dui.webp" },
+  { id: "dairy-and-beverages", name: "Dairy & Beverages", image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748598685/dairy_category_yq3hpw.webp" },
+  { id: "mukhvas-and-digestives", name: "Mukhvas & Digestives", image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748598685/mukhvas_category_kqjghd.webp" },
+  { id: "spices-and-masalas", name: "Spices & Masalas", image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748598685/spices_category_q9rtxy.webp" },
+  { id: "dry-instant-grocery", name: "Dry / Instant Grocery", image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748598685/grocery_category_lk4rtu.webp" },
+  { id: "gift-boxes", name: "Gift Boxes & Hampers", image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748601335/shrewsbury-cookies_hjk9wz.webp" },
 ];
 
 export const products = [

@@ -3,26 +3,26 @@
 This project is a Next.js prototype demonstrating UX, SEO, and conversion rate optimizations for the Naik Foods e-commerce website. It was built as part of an assignment to analyze and improve the existing user experience.
 
 ## Live Demo
-**Deploy URL:** [https://naik-foods-improved-demo.surge.sh](https://naik-foods-improved-demo.surge.sh)
+**Deploy URL:** [https://naikfoods.co.in](https://naikfoods.co.in)
 
 ## Description of What Was Developed
-Based on a comprehensive analysis of the Naik Foods website, I developed a working prototype that addresses several critical UX and conversion friction points. The prototype implements the following key features:
-1. **Smart Global Search**: Replaces the hidden sidebar search with a responsive, global search modal featuring autocomplete and "popular products" fallback.
-2. **Quick View Modal**: Allows users to preview product details, price, and add to cart directly from the store grid without a full page load.
-3. **Regional Bundle Suggestions**: A cross-selling feature on Product Detail Pages (PDP) titled "Complete your Maharashtrian snack box" that suggests complementary items to increase Average Order Value (AOV).
-4. **Pincode Delivery Check**: A lookup simulation on the PDP that validates shipping availability and displays estimated delivery times based on origin regions.
-5. **Product Variants**: Size toggles (e.g., 200g vs 500g) that dynamically update pricing and weight info on the PDP.
-6. **Mock Checkout Flow**: A multi-step checkout simulation leading to an "Order Confirmed" success page, completing the funnel demonstration.
-7. **Free Shipping Progress Bar**: A gamified indicator in the slide-out cart drawer showing exactly how close the user is to unlocking free delivery (₹999 threshold).
-8. **Recently Viewed Products**: A `localStorage`-persisted carousel at the bottom of the store and product pages.
-9. **Fixed Discount Display**: Solved the "0% off" bug from the original site by conditionally rendering discount badges only when the discount is greater than zero.
+Based on a comprehensive analysis of the Naik Foods website, I developed a working prototype that addresses several critical UX and conversion friction points, now fully hardened for production. The prototype implements the following key features:
+1. **Server-Side Rendered Catalog**: Products are loaded from a Postgres database using Prisma ORM.
+2. **Secure Checkout**: Server-side price validation, Razorpay signature verification, and COD support.
+3. **Email Confirmations**: Automated order confirmation emails sent via Resend API.
+4. **Growth Engine & SEO**: Blog with Recipe JSON-LD, BreadcrumbList schema, and referral tracking (`?ref=`) that awards flat discounts.
+5. **Admin Dashboard**: Secure `/admin/orders` view protected by an admin secret to manage order statuses.
+6. **Smart Global Search & Modals**: Responsive search, quick view modals, and cross-selling bundles.
+7. **Pincode Delivery Check**: Dynamic validation of serviceability (mocked via Shiprocket fallback).
+8. **Real-time Filters**: URL-synced price and region filters on the store page.
 
 ## Technologies Used
-- **Framework**: Next.js 16 (App Router)
+- **Framework**: Next.js (App Router, Server Components)
+- **Database**: PostgreSQL (via Prisma ORM)
 - **Styling**: Vanilla CSS (Custom Design System in `globals.css`)
-- **State Management**: React Context API (`CartContext.js`)
-- **Persistence**: `localStorage` (for Cart and Recently Viewed items)
-- **Deployment**: Surge (Static Export)
+- **Payments**: Razorpay API
+- **Emails**: Resend API
+- **Deployment**: Vercel
 
 ## Setup and Installation Instructions
 To run this project locally, ensure you have Node.js installed (v18 or higher recommended).
@@ -39,13 +39,14 @@ To run this project locally, ensure you have Node.js installed (v18 or higher re
    ```
 
 3. **Set up Environment Variables**:
-   Copy `.env.example` to `.env` and fill in any required keys (e.g. Razorpay).
+   Copy `.env.example` to `.env` and configure your Postgres database URL and API keys.
    ```bash
    cp .env.example .env
    ```
 
-4. **Initialize Database (SQLite) & Seed**:
+4. **Initialize Database (Postgres) & Seed**:
    ```bash
+   npx prisma generate
    npx prisma db push
    node prisma/seed.mjs
    ```
@@ -57,23 +58,27 @@ npm run dev
 ```
 The application will be available at [http://localhost:3000](http://localhost:3000).
 
-To build and run for production (Server-Side Rendered / API enabled):
+To build and run for production:
 ```bash
 npm run build
 npm start
 ```
-Note: This is no longer a static export. It requires a Node.js runtime (or Vercel/Netlify) to execute API routes and Prisma queries.
 
 ## Brief Explanation of Implementation
-- **Data Layer**: Migrated from a static mock file to a **Prisma + SQLite** database. Products, variants, and orders are stored locally in `dev.db`.
+- **Data Layer**: Powered by **Prisma + Postgres**. Products, referrals, and orders are stored securely.
 - **Cart Context**: A centralized `CartProvider` manages the cart state and calculations (subtotal, shipping threshold), persisting the state to `localStorage` across page reloads.
 - **Secure Checkout**: API routes recalculate prices server-side from the database to prevent client tampering, supporting both COD and Razorpay paths with HMAC signature verification.
 - **Styling Strategy**: Built a robust Vanilla CSS design system utilizing CSS Variables for colors, spacing, typography, and shadows.
 - **Performance**: Leveraging Next.js Server Components for layouts/product queries and Client Components only where interactivity is needed (e.g., Modals, Cart). Images use native lazy loading.
 
-## Production Readiness Checklist
-While this prototype is functional, several placeholder behaviors should be replaced before a real production launch:
-- **Backend / Database**: Replace the `data/products.js` mock catalog with a real CMS/database (e.g., Sanity, Shopify, Medusa).
-- **Payment Gateway**: Replace the mock checkout timeout simulation with a real Razorpay or PayU integration that verifies payments server-side.
-- **Pincode Validation**: Replace the mock simulation (which accepts any 6-digit number) with an actual API call to a shipping provider (e.g., Delhivery, Shiprocket) to determine real serviceability.
-- **Cart Persistence**: Consider persisting the cart to a database for logged-in users instead of only `localStorage`.
+## Deployment to Vercel
+1. Push your repository to GitHub.
+2. Import the project in Vercel.
+3. In Vercel Environment Variables, set:
+   - `DATABASE_URL` (Points to a Postgres instance like Neon/Supabase)
+   - `RAZORPAY_KEY_ID` & `RAZORPAY_KEY_SECRET`
+   - `RESEND_API_KEY` & `EMAIL_FROM`
+   - `ADMIN_SECRET`
+4. Update the Build Command (if necessary) to ensure Prisma generates the client:
+   `npx prisma generate && next build`
+5. Deploy! Your admin dashboard will be available at `/admin/orders`.
