@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/context/CartContext";
+import Script from "next/script";
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -23,14 +24,61 @@ export default function CheckoutPage() {
     setStep(2);
   };
 
-  const handlePlaceOrder = () => {
+  const handlePlaceOrder = async () => {
     setIsProcessing(true);
-    setTimeout(() => {
+
+    try {
+      // 1. Initialize Order in DB and Razorpay via API
+      const response = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ items, subtotal, shipping, total }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to initialize checkout");
+      }
+
+      // 2. Configure Razorpay Options
+      const options = {
+        key: data.key,
+        amount: data.amount,
+        currency: "INR",
+        name: "Naik Foods",
+        description: "Authentic Maharashtrian Delicacies",
+        order_id: data.razorpayOrderId,
+        handler: function (response) {
+          // On Success
+          setIsProcessing(false);
+          setOrderId(data.orderId);
+          clearCart();
+          setStep(3);
+        },
+        prefill: {
+          name: "Test User",
+          email: "test@example.com",
+          contact: "9999999999"
+        },
+        theme: {
+          color: "#22c55e"
+        }
+      };
+
+      // 3. Open Razorpay Checkout Modal
+      const rzp = new window.Razorpay(options);
+      rzp.on("payment.failed", function (response) {
+        setIsProcessing(false);
+        alert("Payment Failed. Please try again.");
+      });
+      rzp.open();
+
+    } catch (error) {
+      console.error(error);
+      alert(error.message);
       setIsProcessing(false);
-      setOrderId(`NF-${Math.floor(100000 + Math.random() * 900000)}`);
-      clearCart();
-      setStep(3);
-    }, 2000);
+    }
   };
 
   if (!isLoaded || (items.length === 0 && step !== 3)) {
@@ -39,6 +87,7 @@ export default function CheckoutPage() {
 
   return (
     <div className="container" style={{ padding: "4rem 0", maxWidth: "1000px" }}>
+      <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
       {step < 3 && <h1 style={{ marginBottom: "2rem", fontFamily: "var(--font-display)", fontWeight: "800" }}>Secure Checkout</h1>}
       
       <div style={{ display: "grid", gridTemplateColumns: step === 3 ? "1fr" : "1.5fr 1fr", gap: "3rem" }}>

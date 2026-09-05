@@ -8,8 +8,9 @@ export function generateStaticParams() {
   }));
 }
 
-export default function ProductDetailPage({ params }) {
-  const { slug } = params;
+export default async function ProductDetailPage({ params }) {
+  const resolvedParams = await params;
+  const { slug } = resolvedParams;
   const product = products.find((p) => p.slug === slug);
 
   if (!product) return notFound();

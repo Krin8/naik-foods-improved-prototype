@@ -14,13 +14,18 @@ export default function CartDrawer() {
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
-    return () => { document.body.style.overflow = ""; };
-  }, []);
+    const handleEsc = (e) => { if (e.key === "Escape") setIsCartOpen(false); };
+    document.addEventListener("keydown", handleEsc);
+    return () => { 
+      document.removeEventListener("keydown", handleEsc);
+      document.body.style.overflow = ""; 
+    };
+  }, [setIsCartOpen]);
 
   return (
     <>
-      <div className="cart-drawer-overlay" onClick={() => setIsCartOpen(false)} />
-      <div className="cart-drawer">
+      <div className="cart-drawer-overlay" onClick={() => setIsCartOpen(false)} role="presentation" />
+      <div className="cart-drawer" role="dialog" aria-modal="true" aria-label="Shopping Cart">
         <div className="cart-drawer-header">
           <div>
             <div className="cart-drawer-title">Your Cart</div>

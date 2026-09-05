@@ -4,9 +4,11 @@ import Link from "next/link";
 import { useCart } from "@/context/CartContext";
 import SearchModal from "./SearchModal";
 import CartDrawer from "./CartDrawer";
+import MobileMenu from "./MobileMenu";
 
 export default function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const { totalItems, isCartOpen, setIsCartOpen } = useCart();
 
   return (
@@ -43,7 +45,11 @@ export default function Header() {
               {totalItems > 0 && <span className="badge">{totalItems}</span>}
             </button>
 
-            <button className="mobile-menu-btn" aria-label="Open menu">
+            <button 
+              className="mobile-menu-btn" 
+              aria-label="Open menu"
+              onClick={() => setMenuOpen(true)}
+            >
               ☰
             </button>
           </div>
@@ -52,6 +58,7 @@ export default function Header() {
 
       {searchOpen && <SearchModal onClose={() => setSearchOpen(false)} />}
       {isCartOpen && <CartDrawer />}
+      {menuOpen && <MobileMenu onClose={() => setMenuOpen(false)} />}
     </>
   );
 }

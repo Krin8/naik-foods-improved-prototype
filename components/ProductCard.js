@@ -36,10 +36,7 @@ export default function ProductCard({ product, onQuickView }) {
           {product.isBestseller && <span className="badge-bestseller">BESTSELLER</span>}
         </div>
 
-        {/* Hover actions */}
-        <div className="product-card-actions">
-          <button className="product-card-action-btn" aria-label="Add to wishlist">♡</button>
-        </div>
+        {/* Hover actions removed per audit recommendations */}
 
         {/* Quick View button */}
         <div className="product-card-quickview">

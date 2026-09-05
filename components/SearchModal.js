@@ -29,17 +29,26 @@ export default function SearchModal({ onClose }) {
   const popular = products.filter(p => p.isBestseller).slice(0, 4);
 
   return (
-    <div className="search-overlay" onClick={onClose}>
-      <div className="search-modal" onClick={(e) => e.stopPropagation()}>
+    <div className="search-overlay" onClick={onClose} role="presentation">
+      <div 
+        className="search-modal" 
+        onClick={(e) => e.stopPropagation()} 
+        role="dialog" 
+        aria-modal="true" 
+        aria-label="Search Products"
+      >
         <div className="search-input-wrap">
           <span>🔍</span>
+          <label htmlFor="search-input-field" className="visually-hidden" style={{ display: 'none' }}>Search for products</label>
           <input
+            id="search-input-field"
             ref={inputRef}
             className="search-input"
             type="text"
             placeholder="Search masalas, pickles, snacks..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
+            aria-label="Search masalas, pickles, snacks"
           />
           <button className="search-close-btn" onClick={onClose}>ESC</button>
         </div>

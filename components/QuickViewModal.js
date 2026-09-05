@@ -19,8 +19,15 @@ export default function QuickViewModal({ product, onClose }) {
   if (!product) return null;
 
   return (
-    <div className="quickview-overlay" onClick={onClose}>
-      <div className="quickview-modal" onClick={(e) => e.stopPropagation()} style={{ position: "relative" }}>
+    <div className="quickview-overlay" onClick={onClose} role="presentation">
+      <div 
+        className="quickview-modal" 
+        onClick={(e) => e.stopPropagation()} 
+        style={{ position: "relative" }}
+        role="dialog"
+        aria-modal="true"
+        aria-label={`Quick view for ${product.name}`}
+      >
         <button className="quickview-close" onClick={onClose}>✕</button>
 
         <div className="quickview-image">

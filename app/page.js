@@ -11,7 +11,9 @@ export default function HomePage() {
 
   const bestsellers = products.filter(p => p.isBestseller);
   const newArrivals = products.filter(p => p.isNew);
-  const displayCategories = categories.filter(c => c.id !== "all");
+  const displayCategories = categories.filter(c => c.id !== "all" && c.count > 0);
+  const totalProducts = products.length;
+  const totalCategories = displayCategories.length;
 
   return (
     <>
@@ -44,7 +46,7 @@ export default function HomePage() {
           <div className="hero-badge">🌿 Naik Foods Original</div>
           <h1>Authentic Maharashtrian Flavors, Delivered Fresh</h1>
           <p>
-            From hand-pounded masalas to Konkan pickles — discover 115+ traditional delicacies
+            From hand-pounded masalas to Konkan pickles — discover {totalProducts} traditional delicacies
             from Vidarbha, Marathwada, Konkan & Pune.
           </p>
           <Link href="/store" className="hero-cta">
@@ -55,11 +57,11 @@ export default function HomePage() {
           </Link>
           <div className="hero-stats">
             <div>
-              <div className="hero-stat-value">115+</div>
+              <div className="hero-stat-value">{totalProducts}</div>
               <div className="hero-stat-label">Products</div>
             </div>
             <div>
-              <div className="hero-stat-value">8</div>
+              <div className="hero-stat-value">{totalCategories}</div>
               <div className="hero-stat-label">Categories</div>
             </div>
             <div>

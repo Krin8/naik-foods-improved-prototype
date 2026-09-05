@@ -32,14 +32,25 @@ export default function ProductDetailClient({ product }) {
   };
 
   const handlePincodeCheck = () => {
-    if (pincode.length !== 6) {
+    if (pincode.length !== 6 || !/^\d{6}$/.test(pincode)) {
       setPincodeStatus("error");
       return;
     }
-    // Simulate check
+    
+    // Simulate check against a mock database of serviceable PINs
     setPincodeStatus("checking");
     setTimeout(() => {
-      setPincodeStatus("success");
+      // In a real app, this would hit an API. We'll simulate that PINs starting with 1-4 are serviceable, 
+      // 5-8 take longer, and 9 is unserviceable (except 999999 which we'll say is invalid).
+      const firstDigit = parseInt(pincode[0]);
+      
+      if (firstDigit === 9) {
+        setPincodeStatus("unserviceable");
+      } else if (firstDigit >= 5) {
+        setPincodeStatus("extended");
+      } else {
+        setPincodeStatus("success");
+      }
     }, 800);
   };
 
@@ -164,12 +175,49 @@ export default function ProductDetailClient({ product }) {
                   <span>✅</span> Delivery available to <strong>{pincode}</strong>. Estimated delivery: 3-5 days. Ships from {product.region}.
                 </div>
               )}
+              {pincodeStatus === "extended" && (
+                <div style={{ fontSize: "0.85rem", color: "var(--orange-600)", display: "flex", alignItems: "center", gap: "4px" }}>
+                  <span>⚠️</span> Delivery available to <strong>{pincode}</strong>, but may take 7-10 days to remote areas.
+                </div>
+              )}
+              {pincodeStatus === "unserviceable" && (
+                <div style={{ fontSize: "0.85rem", color: "var(--red-500)", display: "flex", alignItems: "center", gap: "4px" }}>
+                  <span>❌</span> Sorry, we do not currently deliver to <strong>{pincode}</strong>.
+                </div>
+              )}
               {!pincodeStatus && (
                 <span style={{ fontSize: "0.85rem", color: "var(--text-secondary)" }}>
                   Please enter your pincode to check delivery time and availability.
                 </span>
               )}
             </div>
+
+            {/* Compliance & Structured Data Block */}
+            <div style={{ marginTop: "32px", borderTop: "1px solid var(--border-color)", paddingTop: "24px" }}>
+              <h2 style={{ fontSize: "1.2rem", marginBottom: "16px", color: "var(--text-primary)" }}>Product Information</h2>
+              
+              <div style={{ display: "grid", gap: "12px", fontSize: "0.95rem", color: "var(--text-secondary)" }}>
+                {product.isVegetarian !== undefined && (
+                  <div>
+                    <span style={{ display: "inline-block", width: "16px", height: "16px", border: "1px solid", borderColor: product.isVegetarian ? "green" : "red", borderRadius: "2px", position: "relative", marginRight: "8px", verticalAlign: "middle" }}>
+                      <span style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "8px", height: "8px", borderRadius: "50%", background: product.isVegetarian ? "green" : "red" }} />
+                    </span>
+                    <strong>{product.isVegetarian ? "100% Vegetarian" : "Non-Vegetarian"}</strong>
+                  </div>
+                )}
+                {product.ingredients && <div><strong>Ingredients:</strong> {product.ingredients}</div>}
+                {product.allergens && <div><strong>Allergens:</strong> {product.allergens}</div>}
+                {product.nutrition && <div><strong>Nutrition (per 100g):</strong> {product.nutrition}</div>}
+                {product.shelfLife && <div><strong>Shelf Life:</strong> {product.shelfLife}</div>}
+                {product.fssai && (
+                  <div style={{ marginTop: "8px", fontSize: "0.85rem", color: "var(--text-muted)" }}>
+                    <strong>FSSAI License:</strong> {product.fssai} <br/>
+                    <em>Manufactured & Marketed by Naik Foods Pvt. Ltd.</em>
+                  </div>
+                )}
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
