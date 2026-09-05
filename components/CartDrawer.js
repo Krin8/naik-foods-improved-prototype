@@ -1,9 +1,11 @@
 "use client";
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { useCart } from "@/context/CartContext";
 import FreeShippingBar from "./FreeShippingBar";
 
 export default function CartDrawer() {
+  const router = useRouter();
   const {
     items, updateQuantity, removeItem,
     subtotal, shipping, total, totalItems,
@@ -97,7 +99,7 @@ export default function CartDrawer() {
               className="cart-checkout-btn"
               onClick={() => {
                 setIsCartOpen(false);
-                window.location.href = "/checkout";
+                router.push("/checkout");
               }}
             >
               Proceed to Checkout →

@@ -8,6 +8,7 @@ export function CartProvider({ children }) {
   const [items, setItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [recentlyViewed, setRecentlyViewed] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   // Load cart from localStorage
   useEffect(() => {
@@ -17,6 +18,7 @@ export function CartProvider({ children }) {
       const viewed = localStorage.getItem("naik-recently-viewed");
       if (viewed) setRecentlyViewed(JSON.parse(viewed));
     } catch (e) { /* ignore */ }
+    setIsLoaded(true);
   }, []);
 
   // Persist cart
@@ -79,6 +81,7 @@ export function CartProvider({ children }) {
       amountToFreeShipping, freeShippingProgress,
       isCartOpen, setIsCartOpen,
       recentlyViewed, addToRecentlyViewed,
+      isLoaded,
     }}>
       {children}
     </CartContext.Provider>

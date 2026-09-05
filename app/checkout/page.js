@@ -1,20 +1,22 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useCart } from "@/context/CartContext";
 
 export default function CheckoutPage() {
-  const { items, subtotal, shipping, total, clearCart } = useCart();
+  const router = useRouter();
+  const { items, subtotal, shipping, total, clearCart, isLoaded } = useCart();
   const [step, setStep] = useState(1);
   const [isProcessing, setIsProcessing] = useState(false);
   const [orderId, setOrderId] = useState(null);
 
   // Redirect to store if cart is empty and not on success step
   useEffect(() => {
-    if (items.length === 0 && step !== 3) {
-      window.location.href = "/store";
+    if (isLoaded && items.length === 0 && step !== 3) {
+      router.push("/store");
     }
-  }, [items.length, step]);
+  }, [isLoaded, items.length, step, router]);
 
   const handleSubmitAddress = (e) => {
     e.preventDefault();
@@ -31,7 +33,7 @@ export default function CheckoutPage() {
     }, 2000);
   };
 
-  if (items.length === 0 && step !== 3) {
+  if (!isLoaded || (items.length === 0 && step !== 3)) {
     return null; // Prevents flashing before redirect
   }
 
