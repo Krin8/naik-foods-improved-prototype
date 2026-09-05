@@ -27,7 +27,7 @@ Based on a comprehensive analysis of the Naik Foods website, I developed a worki
 ## Setup and Installation Instructions
 To run this project locally, ensure you have Node.js installed (v18 or higher recommended).
 
-1. **Clone the repository** (or extract the source code):
+1. **Clone the repository**:
    ```bash
    git clone <repository_url>
    cd naik-foods-improved
@@ -38,6 +38,18 @@ To run this project locally, ensure you have Node.js installed (v18 or higher re
    npm install
    ```
 
+3. **Set up Environment Variables**:
+   Copy `.env.example` to `.env` and fill in any required keys (e.g. Razorpay).
+   ```bash
+   cp .env.example .env
+   ```
+
+4. **Initialize Database (SQLite) & Seed**:
+   ```bash
+   npx prisma db push
+   node prisma/seed.mjs
+   ```
+
 ## How to Run the Project
 Start the Next.js development server:
 ```bash
@@ -45,17 +57,19 @@ npm run dev
 ```
 The application will be available at [http://localhost:3000](http://localhost:3000).
 
-To build for production (static export):
+To build and run for production (Server-Side Rendered / API enabled):
 ```bash
 npm run build
+npm start
 ```
-The statically generated files will be available in the `out/` directory.
+Note: This is no longer a static export. It requires a Node.js runtime (or Vercel/Netlify) to execute API routes and Prisma queries.
 
 ## Brief Explanation of Implementation
-- **Data Layer**: Instead of a real backend, a mock product catalog (`data/products.js`) is used, structured to mimic the real Naik Foods inventory with relationships for bundles.
+- **Data Layer**: Migrated from a static mock file to a **Prisma + SQLite** database. Products, variants, and orders are stored locally in `dev.db`.
 - **Cart Context**: A centralized `CartProvider` manages the cart state and calculations (subtotal, shipping threshold), persisting the state to `localStorage` across page reloads.
-- **Styling Strategy**: Following the constraint of avoiding Tailwind CSS unless explicitly requested, I built a robust Vanilla CSS design system utilizing CSS Variables (Custom Properties) for colors, spacing, typography, and shadows. This ensures consistent UI rendering and highly optimized, clean markup.
-- **Performance**: Leveraging Next.js Server Components for layouts and Client Components only where interactivity is needed (e.g., Modals, Cart). Images use native lazy loading.
+- **Secure Checkout**: API routes recalculate prices server-side from the database to prevent client tampering, supporting both COD and Razorpay paths with HMAC signature verification.
+- **Styling Strategy**: Built a robust Vanilla CSS design system utilizing CSS Variables for colors, spacing, typography, and shadows.
+- **Performance**: Leveraging Next.js Server Components for layouts/product queries and Client Components only where interactivity is needed (e.g., Modals, Cart). Images use native lazy loading.
 
 ## Production Readiness Checklist
 While this prototype is functional, several placeholder behaviors should be replaced before a real production launch:

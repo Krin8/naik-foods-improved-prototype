@@ -7,6 +7,7 @@ import QuickViewModal from "@/components/QuickViewModal";
 import RecentlyViewed from "@/components/RecentlyViewed";
 import Testimonials from "@/components/Testimonials";
 import NewsletterSignup from "@/components/NewsletterSignup";
+import InstagramGrid from "@/components/InstagramGrid";
 
 export default function HomeClient({ products }) {
   const [quickViewProduct, setQuickViewProduct] = useState(null);
@@ -177,6 +178,9 @@ export default function HomeClient({ products }) {
 
       {/* Testimonials */}
       <Testimonials />
+
+      {/* Instagram Grid */}
+      <InstagramGrid />
 
       {/* Newsletter */}
       <NewsletterSignup />

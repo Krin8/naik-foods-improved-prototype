@@ -1,25 +1,56 @@
 "use client";
 import { useState, useMemo } from "react";
-import { useSearchParams } from "next/navigation";
-import { categories } from "@/data/products"; // Categories can stay static or be moved to DB
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { categories } from "@/data/products";
 import ProductCard from "@/components/ProductCard";
 import QuickViewModal from "@/components/QuickViewModal";
 import RecentlyViewed from "@/components/RecentlyViewed";
 
 export default function StoreClient({ initialProducts }) {
+  const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
   const categoryParam = searchParams.get("category") || "all";
 
   const [activeCategory, setActiveCategory] = useState(categoryParam);
   const [sortBy, setSortBy] = useState("popular");
+  const [regionFilter, setRegionFilter] = useState("all");
+  const [priceFilter, setPriceFilter] = useState("all");
   const [visibleCount, setVisibleCount] = useState(12);
   const [quickViewProduct, setQuickViewProduct] = useState(null);
+
+  const uniqueRegions = useMemo(() => {
+    const regions = new Set(initialProducts.map(p => p.region).filter(Boolean));
+    return Array.from(regions).sort();
+  }, [initialProducts]);
+
+  const handleCategoryChange = (catId) => {
+    setActiveCategory(catId);
+    setVisibleCount(12);
+    const params = new URLSearchParams(searchParams);
+    if (catId === "all") {
+      params.delete("category");
+    } else {
+      params.set("category", catId);
+    }
+    router.replace(`${pathname}?${params.toString()}`);
+  };
 
   const filteredProducts = useMemo(() => {
     let result = [...initialProducts];
 
     if (activeCategory !== "all") {
       result = result.filter(p => p.category === activeCategory);
+    }
+
+    if (regionFilter !== "all") {
+      result = result.filter(p => p.region === regionFilter);
+    }
+
+    if (priceFilter !== "all") {
+      if (priceFilter === "under-200") result = result.filter(p => p.price < 200);
+      else if (priceFilter === "200-500") result = result.filter(p => p.price >= 200 && p.price <= 500);
+      else if (priceFilter === "over-500") result = result.filter(p => p.price > 500);
     }
 
     switch (sortBy) {
@@ -30,8 +61,7 @@ export default function StoreClient({ initialProducts }) {
         result.sort((a, b) => b.price - a.price);
         break;
       case "rating":
-        // Fallback for rating since it's not in DB schema yet
-        result.sort((a, b) => (b.isBestseller ? 1 : 0) - (a.isBestseller ? 1 : 0));
+        result.sort((a, b) => b.rating - a.rating);
         break;
       case "newest":
         result.sort((a, b) => (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0));
@@ -41,7 +71,7 @@ export default function StoreClient({ initialProducts }) {
     }
 
     return result;
-  }, [activeCategory, sortBy, initialProducts]);
+  }, [activeCategory, regionFilter, priceFilter, sortBy, initialProducts]);
 
   const displayedProducts = filteredProducts.slice(0, visibleCount);
   const hasMore = visibleCount < filteredProducts.length;
@@ -59,22 +89,36 @@ export default function StoreClient({ initialProducts }) {
             <button
               key={cat.id}
               className={`category-pill ${activeCategory === cat.id ? "active" : ""}`}
-              onClick={() => {
-                setActiveCategory(cat.id);
-                setVisibleCount(12);
-              }}
+              onClick={() => handleCategoryChange(cat.id)}
             >
               {cat.name} ({cat.count})
             </button>
           ))}
         </div>
 
-        <div className="store-results-header">
-          <div className="store-results-count">
+        <div className="store-results-header" style={{ display: "flex", flexWrap: "wrap", gap: "1rem", alignItems: "center", justifyContent: "space-between", marginBottom: "2rem" }}>
+          <div className="store-results-count" style={{ flex: "1 1 100%" }}>
             Showing <strong>{displayedProducts.length}</strong> of <strong>{filteredProducts.length}</strong> products
           </div>
+          
+          <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+            <select value={regionFilter} onChange={(e) => setRegionFilter(e.target.value)} style={{ padding: "0.5rem", borderRadius: "8px", border: "1px solid var(--border-color)", background: "white" }}>
+              <option value="all">All Regions</option>
+              {uniqueRegions.map(r => (
+                <option key={r} value={r}>{r}</option>
+              ))}
+            </select>
+
+            <select value={priceFilter} onChange={(e) => setPriceFilter(e.target.value)} style={{ padding: "0.5rem", borderRadius: "8px", border: "1px solid var(--border-color)", background: "white" }}>
+              <option value="all">Any Price</option>
+              <option value="under-200">Under ₹200</option>
+              <option value="200-500">₹200 - ₹500</option>
+              <option value="over-500">Over ₹500</option>
+            </select>
+          </div>
+
           <div className="store-sort">
-            <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+            <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} style={{ padding: "0.5rem", borderRadius: "8px", border: "1px solid var(--border-color)", background: "white" }}>
               <option value="popular">Sort: Most Popular</option>
               <option value="price-low">Price: Low to High</option>
               <option value="price-high">Price: High to Low</option>

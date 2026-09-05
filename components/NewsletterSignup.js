@@ -5,16 +5,28 @@ export default function NewsletterSignup() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState("idle");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email) return;
     setStatus("loading");
     
-    // Simulate API call
-    setTimeout(() => {
-      setStatus("success");
-      setEmail("");
-    }, 1000);
+    try {
+      const res = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      if (res.ok) {
+        setStatus("success");
+        setEmail("");
+      } else {
+        setStatus("idle");
+        alert("Failed to subscribe. Please try again.");
+      }
+    } catch (err) {
+      setStatus("idle");
+      alert("Network error. Please try again.");
+    }
   };
 
   return (

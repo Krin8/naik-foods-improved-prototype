@@ -25,6 +25,7 @@ export default function Header() {
             <Link href="/store">Shop</Link>
             <Link href="/store?category=pickles-and-condiments">Pickles</Link>
             <Link href="/store?category=sweets-and-bakery">Sweets</Link>
+            <Link href="/orders/track">Track Order</Link>
           </nav>
 
           <div className="header-actions">

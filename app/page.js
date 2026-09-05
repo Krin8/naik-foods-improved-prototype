@@ -1,7 +1,6 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/lib/prisma";
 import HomeClient from "./HomeClient";
 
-const prisma = new PrismaClient();
 
 export default async function HomePage() {
   const rawProducts = await prisma.product.findMany();

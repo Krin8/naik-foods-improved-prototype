@@ -1,8 +1,7 @@
 import { Suspense } from "react";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/lib/prisma";
 import StoreClient from "./StoreClient";
 
-const prisma = new PrismaClient();
 
 export default async function StorePage() {
   const rawProducts = await prisma.product.findMany();

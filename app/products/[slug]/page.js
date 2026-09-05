@@ -1,8 +1,6 @@
 import { notFound } from "next/navigation";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/lib/prisma";
 import ProductDetailClient from "./ProductDetailClient";
-
-const prisma = new PrismaClient();
 
 export async function generateMetadata({ params }) {
   const resolvedParams = await params;

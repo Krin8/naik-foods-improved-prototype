@@ -12,6 +12,7 @@ export default function CheckoutPage() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [orderId, setOrderId] = useState(null);
   const [errorMsg, setErrorMsg] = useState("");
+  const [promoCode, setPromoCode] = useState("");
 
   // Address state (controlled)
   const [address, setAddress] = useState({
@@ -34,6 +35,28 @@ export default function CheckoutPage() {
     }
   }, [isLoaded, items.length, step, router]);
 
+  // GA4: begin_checkout
+  useEffect(() => {
+    if (isLoaded && step === 1 && items.length > 0 && typeof window !== "undefined" && window.gtag) {
+      window.gtag("event", "begin_checkout", {
+        currency: "INR",
+        value: total,
+        items: items.map(i => ({ item_id: i.id, item_name: i.name, price: i.price, quantity: i.quantity }))
+      });
+    }
+  }, [isLoaded, step, items, total]);
+
+  // GA4: purchase
+  useEffect(() => {
+    if (step === 3 && orderId && typeof window !== "undefined" && window.gtag) {
+      window.gtag("event", "purchase", {
+        transaction_id: orderId,
+        currency: "INR",
+        value: total,
+      });
+    }
+  }, [step, orderId, total]);
+
   const handleAddressChange = (field, value) => {
     setAddress(prev => ({ ...prev, [field]: value }));
   };
@@ -52,6 +75,7 @@ export default function CheckoutPage() {
       items: items.map(i => ({ id: i.id, slug: i.slug, quantity: i.quantity, variantIndex: i.variantIndex })),
       address,
       paymentMethod,
+      promoCode,
     };
 
     try {
@@ -84,11 +108,29 @@ export default function CheckoutPage() {
         name: "Naik Foods",
         description: "Authentic Maharashtrian Delicacies",
         order_id: data.razorpayOrderId,
-        handler: function () {
-          setIsProcessing(false);
-          setOrderId(data.orderId);
-          clearCart();
-          setStep(3);
+        handler: async function (response) {
+          try {
+            const verifyRes = await fetch("/api/checkout/verify", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+                orderId: data.orderId,
+              }),
+            });
+            const verifyData = await verifyRes.json();
+            if (!verifyRes.ok) throw new Error(verifyData.error || "Payment verification failed");
+            
+            setIsProcessing(false);
+            setOrderId(data.orderId);
+            clearCart();
+            setStep(3);
+          } catch (err) {
+            setIsProcessing(false);
+            setErrorMsg(err.message || "Payment verification failed. Please contact support.");
+          }
         },
         prefill: {
           name: `${address.firstName} ${address.lastName}`,
@@ -199,7 +241,8 @@ export default function CheckoutPage() {
               </p>
               <div style={{ display: "inline-block", background: "white", padding: "1rem 2rem", borderRadius: "8px", marginBottom: "2rem", boxShadow: "var(--shadow-sm)" }}>
                 <span style={{ display: "block", fontSize: "0.9rem", color: "var(--text-muted)", marginBottom: "0.5rem" }}>Order Number</span>
-                <strong style={{ fontSize: "1.2rem" }}>{orderId}</strong>
+                <strong style={{ fontSize: "1.2rem", display: "block", marginBottom: "0.5rem" }}>{orderId}</strong>
+                <Link href="/orders/track" style={{ fontSize: "0.9rem", color: "var(--green-600)", textDecoration: "underline" }}>Track Order</Link>
               </div>
               <div>
                 <Link href="/store" style={{ ...btnStyle, display: "inline-block", textDecoration: "none" }}>Continue Shopping</Link>
@@ -223,6 +266,16 @@ export default function CheckoutPage() {
                   <div style={{ fontWeight: "700", fontSize: "0.9rem" }}>₹{item.price * item.quantity}</div>
                 </div>
               ))}
+            </div>
+            
+            <div style={{ display: "flex", gap: "0.5rem", marginBottom: "1.5rem" }}>
+              <input 
+                type="text" 
+                placeholder="Promo Code" 
+                value={promoCode} 
+                onChange={(e) => setPromoCode(e.target.value.toUpperCase())}
+                style={{ ...inputStyle, padding: "8px 12px" }}
+              />
             </div>
             
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.5rem", fontSize: "0.95rem" }}>

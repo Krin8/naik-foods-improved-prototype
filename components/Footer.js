@@ -26,17 +26,17 @@ export default function Footer() {
           <div className="footer-col">
             <h4>Company</h4>
             <Link href="/about">About Us</Link>
-            <Link href="/about">Blog (Coming Soon)</Link>
+            <Link href="/blog">Blog</Link>
             <Link href="/contact">Contact</Link>
             <Link href="/contact">Store Locator</Link>
           </div>
 
           <div className="footer-col">
-            <h4>Help</h4>
-            <Link href="/policies#shipping">Shipping Policy</Link>
-            <Link href="/policies#returns">Return Policy</Link>
+            <h4>Support</h4>
+            <Link href="/contact">FAQs</Link>
+            <Link href="/policies">Shipping & Returns</Link>
+            <Link href="/orders/track">Track Order</Link>
             <Link href="/policies#privacy">Privacy Policy</Link>
-            <Link href="/policies#privacy">Terms & Conditions</Link>
           </div>
         </div>
 

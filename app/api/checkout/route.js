@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/lib/prisma";
 import Razorpay from "razorpay";
 
-const prisma = new PrismaClient();
 const SHIPPING_FEE = 60;
 const FREE_SHIPPING_THRESHOLD = 999;
 
@@ -13,7 +12,7 @@ const razorpay = new Razorpay({
 
 export async function POST(req) {
   try {
-    const { items, address, paymentMethod } = await req.json();
+    const { items, address, paymentMethod, promoCode } = await req.json();
 
     if (!items || items.length === 0) {
       return NextResponse.json({ error: "Cart is empty" }, { status: 400 });
@@ -64,8 +63,14 @@ export async function POST(req) {
       });
     }
 
-    const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
-    const total = subtotal + shipping;
+    let discount = 0;
+    if (promoCode === "PROMO10") {
+      discount = Math.round(subtotal * 0.10);
+    }
+    const finalSubtotal = subtotal - discount;
+
+    const shipping = finalSubtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
+    const total = finalSubtotal + shipping;
 
     // ======== CREATE ORDER IN DATABASE ========
     const order = await prisma.order.create({
