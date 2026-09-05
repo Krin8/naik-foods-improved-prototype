@@ -1,4 +1,4 @@
-export const categories = [
+const rawCategories = [
   { id: "all", name: "All Categories", icon: "🏠", count: 115 },
   { id: "snacks-and-namkeen", name: "Snacks & Namkeen", image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748598684/snacks_category_bthhwe.webp", count: 105 },
   { id: "pickles-and-condiments", name: "Pickles & Condiments", image: "https://res.cloudinary.com/diyfjndsj/image/upload/v1748598685/pickles_category_o09v7z.webp", count: 14 },
@@ -455,3 +455,8 @@ export const bundles = {
 };
 
 export const FREE_SHIPPING_THRESHOLD = 999;
+
+export const categories = rawCategories.map(c => ({
+  ...c,
+  count: c.id === "all" ? products.length : products.filter(p => p.category === c.id).length
+}));

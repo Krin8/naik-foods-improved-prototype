@@ -14,5 +14,33 @@ export default function ProductDetailPage({ params }) {
 
   if (!product) return notFound();
 
-  return <ProductDetailClient product={product} />;
+  const jsonLd = {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    name: product.name,
+    image: product.image,
+    description: product.description,
+    sku: product.slug,
+    brand: {
+      "@type": "Brand",
+      name: product.brand,
+    },
+    offers: {
+      "@type": "Offer",
+      url: `https://naik-foods-improved-demo.surge.sh/products/${product.slug}`,
+      priceCurrency: "INR",
+      price: product.price,
+      availability: product.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+    },
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <ProductDetailClient product={product} />
+    </>
+  );
 }

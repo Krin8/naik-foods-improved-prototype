@@ -4,13 +4,14 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 export const metadata = {
+  metadataBase: new URL("https://naik-foods-improved-demo.surge.sh"),
   title: "Naik Foods | Authentic Maharashtrian Delicacies & Masalas",
   description: "Order traditional Maharashtrian masalas, pickles, and food specialties from Vidarbha, Marathwada, Konkan & Pune. Hand-pounded, authentic, delivered fresh.",
   keywords: "Naik Foods, Maharashtrian food, Vidarbha masalas, authentic pickles, Indian spices, Pune food store",
   openGraph: {
     title: "Naik Foods | Authentic Maharashtrian Delicacies",
     description: "Hand-pounded masalas, traditional pickles, and farm-fresh staples.",
-    url: "https://naikfoods-improved.netlify.app",
+    url: "https://naik-foods-improved-demo.surge.sh",
     siteName: "Naik Foods",
     locale: "en_IN",
     type: "website",
